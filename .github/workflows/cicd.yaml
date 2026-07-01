@@ -10,16 +10,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'pnpm'
-      - run: pnpm install
-      - run: pnpm run lint:oxlint
-      - run: pnpm run build
+      
+      - run: npm install
+      - run: npm run build
       
       - name: Deploy to Infinity Free
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
