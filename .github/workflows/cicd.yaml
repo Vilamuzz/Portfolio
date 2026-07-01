@@ -10,17 +10,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      
-      - run: npm install
-      - run: npm run lint
-      - run: npm run build
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm run lint:oxlint
+      - run: pnpm run build
       
       - name: Deploy to Infinity Free
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
