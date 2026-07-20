@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-primary: #ffd60a;
+  --color-secondary: #ffc300;
+
+  --color-brand-blue-light: #00509d;
+  --color-brand-blue: #003566;
+  --color-brand-navy: #001d3d;
+  --color-brand-black: #000814;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "tag": "Web App",
+    "title": "Dashboard UI",
+    "desc": "A sleek analytics dashboard with real-time data visualisation and dark-mode support.",
+    "tech": ["Vue 3", "Pinia", "Chart.js"],
+    "link": "#"
+  },
+  {
+    "tag": "E-Commerce",
+    "title": "Shop Platform",
+    "desc": "Full-featured storefront with cart management, auth, and payment integration.",
+    "tech": ["React", "Node.js", "Stripe"],
+    "link": "#"
+  },
+  {
+    "tag": "Design System",
+    "title": "Component Library",
+    "desc": "Scalable, accessible component library with automated visual-regression tests.",
+    "tech": ["Vue 3", "Storybook", "Vitest"],
+    "link": "#"
+  },
+  {
+    "tag": "Portfolio",
+    "title": "Personal Site",
+    "desc": "This very portfolio — built from scratch with Vite, Vue 3 and Tailwind CSS v4.",
+    "tech": ["Vue 3", "Vite", "Tailwind 4"],
+    "link": "#"
+  }
+]
