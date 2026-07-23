@@ -13,7 +13,6 @@ import {
   ExternalLink,
 } from "lucide";
 import Lenis from "lenis";
-import skills from "@/data/skills.json";
 import projects from "@/data/projects.json";
 import marqueeItems from "@/data/techStack.json";
 import gsap from "gsap";
@@ -236,43 +235,30 @@ const scrollTo = (id) => {
       id="hero"
       class="relative min-h-screen flex items-center justify-center overflow-hidden px-6"
     >
-      <!-- Background decorations -->
-      <div class="absolute inset-0 pointer-events-none">
-        <!-- Radial glow -->
-        <div
-          class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-primary/8 blur-[120px]"
-        ></div>
-        <!-- Grid lines -->
-        <div
-          class="absolute inset-0 opacity-5"
-          style="
-            background-image:
-              linear-gradient(rgba(255, 214, 10, 0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255, 214, 10, 0.3) 1px, transparent 1px);
-            background-size: 60px 60px;
-          "
-        ></div>
-      </div>
-
       <div
         class="relative z-10 max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-center gap-16 pt-24"
       >
         <!-- Text -->
         <div class="flex-1 space-y-8">
-          <div>
-            <p class="text-white/40 text-lg font-medium mb-2 tracking-wide">Hi, I'm</p>
-            <h1 class="text-7xl lg:text-8xl font-extrabold leading-none tracking-tight">
-              Vila<span class="text-primary">muzz</span>
+          <div class="space-y-4">
+            <h1 class="text-7xl lg:text-6xl font-extrabold leading-none tracking-tight">
+              Hi, I'm
+              <span class="group inline-grid grid-cols-1 grid-rows-1 overflow-hidden align-bottom">
+                <span
+                  class="col-start-1 row-start-1 transition-all duration-500 ease-in-out group-hover:-translate-y-full group-hover:opacity-0"
+                  >Andy</span
+                >
+                <span
+                  class="col-start-1 row-start-1 translate-y-full opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 text-primary"
+                  >Vilamuzz</span
+                >
+              </span>
             </h1>
-          </div>
-
-          <div class="flex items-center gap-3">
-            <div class="h-px w-10 bg-primary"></div>
-            <p class="text-xl text-white/60 font-medium">Fullstack Developer</p>
+            <p class="text-2xl text-primary font-bold">Frontend Developer</p>
           </div>
 
           <p class="text-white/50 text-lg leading-relaxed max-w-lg">
-            Crafting pixel-perfect, high-performance web experiences with a passion for clean code
+            Crafting robust system, high-performance web experiences with a passion for clean code
             and delightful interactions.
           </p>
 
@@ -302,10 +288,6 @@ const scrollTo = (id) => {
         <div class="flex-shrink-0 relative">
           <!-- Glowing border card -->
           <div class="relative w-72 h-72 lg:w-80 lg:h-80">
-            <!-- Outer glow ring -->
-            <div
-              class="absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/30 to-secondary/10 blur-2xl animate-pulse"
-            ></div>
             <!-- Card -->
             <div
               class="relative w-full h-full bg-brand-navy border border-white/10 rounded-3xl p-8 flex flex-col justify-between overflow-hidden"
@@ -313,41 +295,17 @@ const scrollTo = (id) => {
               <!-- Corner accent -->
               <div class="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-bl-3xl"></div>
 
-              <div class="space-y-1">
-                <p class="text-white/40 text-xs font-semibold tracking-widest uppercase">Role</p>
-                <p class="text-white font-bold text-lg">Fullstack Dev</p>
-              </div>
+              <div class="space-y-1"></div>
 
               <!-- Big yellow initial -->
               <div class="text-center">
                 <span class="text-9xl font-extrabold text-primary leading-none select-none">V</span>
               </div>
 
-              <div class="flex justify-between items-end">
-                <div>
-                  <p class="text-white/40 text-xs font-semibold tracking-widest uppercase">
-                    Experience
-                  </p>
-                  <p class="text-white font-bold">3+ Years</p>
-                </div>
-                <div class="text-right">
-                  <p class="text-white/40 text-xs font-semibold tracking-widest uppercase">
-                    Projects
-                  </p>
-                  <p class="text-white font-bold">20+</p>
-                </div>
-              </div>
+              <div class="flex justify-between items-end"></div>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Scroll hint -->
-      <div
-        class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce"
-      >
-        <span class="text-white/30 text-xs font-medium tracking-widest uppercase">Scroll</span>
-        <div class="w-px h-8 bg-gradient-to-b from-white/30 to-transparent"></div>
       </div>
     </section>
 
@@ -371,7 +329,7 @@ const scrollTo = (id) => {
       <div class="max-w-6xl mx-auto">
         <!-- Section label -->
         <div class="flex items-center gap-4 mb-16">
-          <span class="text-primary font-bold text-sm tracking-widest uppercase">01 — About</span>
+          <span class="text-primary font-bold text-sm tracking-widest uppercase">About</span>
           <div class="h-px flex-1 bg-white/5"></div>
         </div>
 
@@ -392,19 +350,10 @@ const scrollTo = (id) => {
             </p>
 
             <!-- Stats row -->
-            <div class="grid grid-cols-3 gap-6 pt-4">
-              <div
-                v-for="stat in [
-                  ['3+', 'Years Exp.'],
-                  ['20+', 'Projects'],
-                  ['10+', 'Clients'],
-                ]"
-                :key="stat[0]"
-                class="space-y-1"
-              >
-                <p class="text-4xl font-extrabold text-primary">{{ stat[0] }}</p>
-                <p class="text-white/40 text-sm font-medium">{{ stat[1] }}</p>
-              </div>
+            <div>
+              <p class="text-primary font-bold">
+                "First, solve the problem. Then, write the code."
+              </p>
             </div>
           </div>
 
@@ -453,7 +402,7 @@ const scrollTo = (id) => {
     <section id="skills" class="py-32 px-6 bg-brand-navy/30">
       <div class="max-w-6xl mx-auto">
         <div class="flex items-center gap-4 mb-16">
-          <span class="text-primary font-bold text-sm tracking-widest uppercase">02 — Skills</span>
+          <span class="text-primary font-bold text-sm tracking-widest uppercase">Skills</span>
           <div class="h-px flex-1 bg-white/5"></div>
         </div>
 
@@ -468,48 +417,43 @@ const scrollTo = (id) => {
             </p>
           </div>
 
-          <!-- Skill bars -->
-          <div class="space-y-6">
-            <div v-for="skill in skills" :key="skill.name" class="space-y-2">
-              <div class="flex justify-between items-center">
-                <span class="text-white font-semibold text-sm">{{ skill.name }}</span>
-                <span class="text-primary font-bold text-sm">{{ skill.level }}%</span>
-              </div>
-              <div class="h-1.5 bg-white/5 rounded-full overflow-hidden">
-                <div
-                  class="h-full rounded-full bg-gradient-to-r from-primary to-secondary transition-all duration-1000"
-                  :style="{ width: skill.level + '%' }"
-                ></div>
+          <!-- Organized Skills Categories -->
+          <div class="space-y-10">
+            <div
+              v-for="category in [
+                {
+                  title: 'Languages',
+                  items: ['Go', 'JavaScript', 'TypeScript'],
+                },
+                {
+                  title: 'Frontend',
+                  items: ['Vue 3', 'React', 'Tailwind CSS', 'Pinia', 'Vite'],
+                },
+                {
+                  title: 'Databases & APIs',
+                  items: ['PostgreSQL', 'Redis', 'REST API'],
+                },
+                {
+                  title: 'DevOps & Tools',
+                  items: ['Docker', 'Cloudflare', 'GitHub Actions', 'Git', 'Figma', 'Postman'],
+                },
+              ]"
+              :key="category.title"
+            >
+              <h3 class="text-white/40 text-sm font-semibold tracking-widest uppercase mb-4">
+                {{ category.title }}
+              </h3>
+              <div class="flex flex-wrap gap-3">
+                <span
+                  v-for="item in category.items"
+                  :key="item"
+                  class="border border-white/10 text-white/70 text-sm font-medium tracking-wide px-4 py-2 rounded-full hover:border-primary/40 hover:text-primary transition-all duration-200 cursor-default"
+                >
+                  {{ item }}
+                </span>
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- Tech tags -->
-        <div class="mt-16 flex flex-wrap gap-3">
-          <span
-            v-for="tag in [
-              'HTML5',
-              'CSS3',
-              'JavaScript',
-              'TypeScript',
-              'Vue 3',
-              'React',
-              'Vite',
-              'Tailwind CSS',
-              'Pinia',
-              'Vue Router',
-              'Git',
-              'Figma',
-              'REST API',
-              'GraphQL',
-              'Vitest',
-            ]"
-            :key="tag"
-            class="border border-white/10 text-white/50 text-xs font-semibold tracking-wide px-4 py-2 rounded-full hover:border-primary/40 hover:text-primary transition-all duration-200 cursor-default"
-          >
-            {{ tag }}
-          </span>
         </div>
       </div>
     </section>
@@ -518,9 +462,7 @@ const scrollTo = (id) => {
     <section id="projects" class="py-32 px-6">
       <div class="max-w-6xl mx-auto">
         <div class="flex items-center gap-4 mb-16">
-          <span class="text-primary font-bold text-sm tracking-widest uppercase"
-            >03 — Projects</span
-          >
+          <span class="text-primary font-bold text-sm tracking-widest uppercase">Projects</span>
           <div class="h-px flex-1 bg-white/5"></div>
         </div>
 
@@ -577,7 +519,7 @@ const scrollTo = (id) => {
       <div class="max-w-4xl mx-auto text-center">
         <div class="flex items-center justify-center gap-4 mb-16">
           <div class="h-px w-16 bg-white/5"></div>
-          <span class="text-primary font-bold text-sm tracking-widest uppercase">04 — Contact</span>
+          <span class="text-primary font-bold text-sm tracking-widest uppercase">Contact</span>
           <div class="h-px w-16 bg-white/5"></div>
         </div>
 
@@ -595,25 +537,27 @@ const scrollTo = (id) => {
               v-for="item in [
                 {
                   label: 'Email',
-                  value: 'hello@vilamuzz.dev',
+                  value: 'vilamuzz@gmail.com',
                   icon: 'mail',
-                  href: 'mailto:hello@vilamuzz.dev',
+                  href: 'mailto:vilamuzz@gmail.com',
                 },
                 {
                   label: 'GitHub',
-                  value: '@vilamuzz',
+                  value: 'Vilamuzz',
                   icon: 'codeXml',
-                  href: 'https://github.com',
+                  href: 'https://github.com/Vilamuzz',
                 },
                 {
                   label: 'LinkedIn',
-                  value: 'Vilamuzz',
+                  value: 'Andy Kasa',
                   icon: 'link',
-                  href: 'https://linkedin.com',
+                  href: 'https://www.linkedin.com/in/andy-kasa',
                 },
               ]"
               :key="item.label"
               :href="item.href"
+              :target="item.href.startsWith('mailto:') ? null : '_blank'"
+              :rel="item.href.startsWith('mailto:') ? null : 'noopener noreferrer'"
               class="group flex flex-col items-center gap-3 border border-white/5 rounded-2xl p-6 hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
             >
               <div class="text-primary mb-1">
