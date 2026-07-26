@@ -1,30 +1,30 @@
 [
   {
     "tag": "Web App",
-    "title": "Dashboard UI",
-    "desc": "A sleek analytics dashboard with real-time data visualisation and dark-mode support.",
-    "tech": ["Vue 3", "Pinia", "Chart.js"],
-    "link": "#"
+    "title": "Nyuwi Creation",
+    "desc": "Web site E-commerce untuk menjual aneka kreasi dan aksesoris handmade.",
+    "tech": ["Vue 3", "Tailwind CSS", "Laravel", "MySQL"],
+    "link": "https://github.com/Vilamuzz/Nyuwi-Creation-Project"
   },
   {
-    "tag": "E-Commerce",
-    "title": "Shop Platform",
-    "desc": "Full-featured storefront with cart management, auth, and payment integration.",
-    "tech": ["React", "Node.js", "Stripe"],
-    "link": "#"
+    "tag": "Web App",
+    "title": "WaraDesa",
+    "desc": "CMS berbasis web untuk mengelola konten berita dan informasi desa dengan user role.",
+    "tech": ["Vue 3", "Tailwind CSS", "Laravel", "MySQL"],
+    "link": "https://github.com/adkurnwn/PBL-CMS-Desa-BIPTEK"
   },
   {
-    "tag": "Design System",
-    "title": "Component Library",
-    "desc": "Scalable, accessible component library with automated visual-regression tests.",
-    "tech": ["Vue 3", "Storybook", "Vitest"],
-    "link": "#"
+    "tag": "Web App",
+    "title": "HelpDesk Application",
+    "desc": "HelpDesk Application untuk mengelola tiket bantuan dan permintaan layanan.",
+    "tech": ["Vue 3", "Tailwind CSS", "Laravel", "Golang", "PostgreSQL"],
+    "link": "https://github.com/Vilamuzz/HD-ECOM-BE"
   },
   {
-    "tag": "Portfolio",
-    "title": "Personal Site",
-    "desc": "This very portfolio — built from scratch with Vite, Vue 3 and Tailwind CSS v4.",
-    "tech": ["Vue 3", "Vite", "Tailwind 4"],
-    "link": "#"
+    "tag": "Web App",
+    "title": "YOTA",
+    "desc": "Website untuk mengelola informasi yayasan dan melakukan penggalangan donasi",
+    "tech": ["Vue 3", "Tailwind CSS", "Golang", "PostgreSQL"],
+    "link": "dev-yota.vilamuzz.me"
   }
 ]

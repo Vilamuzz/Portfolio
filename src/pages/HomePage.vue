@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
 import {
-  createIcons,
   Palette,
   Zap,
   Accessibility,
@@ -11,12 +10,24 @@ import {
   Link,
   ArrowRight,
   ExternalLink,
-} from "lucide";
+} from "@lucide/vue";
 import Lenis from "lenis";
 import projects from "@/data/projects.json";
-import marqueeItems from "@/data/techStack.json";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useHeroAnimation } from "@/composables/animations/useHeroAnimation";
+import { useAboutAnimation } from "@/composables/animations/useAboutAnimation";
+import { useSkillsAnimation } from "@/composables/animations/useSkillsAnimation";
+import { useProjectsAnimation } from "@/composables/animations/useProjectsAnimation";
+import { useContactAnimation } from "@/composables/animations/useContactAnimation";
+import { useButtonAnimation } from "@/composables/animations/useButtonAnimation";
+
+const { animateHero } = useHeroAnimation();
+const { animateAbout } = useAboutAnimation();
+const { animateSkills } = useSkillsAnimation();
+const { animateProjects } = useProjectsAnimation();
+const { animateContact } = useContactAnimation();
+const { animateButtonHover, animateButtonHoverOut } = useButtonAnimation();
 
 // Nav scroll state
 const scrolled = ref(false);
@@ -24,80 +35,12 @@ const activeSection = ref("hero");
 let lenis = null;
 let rafId = null;
 
-const animateOnScroll = () => {
-  // Hero fade-in on load
-  gsap.fromTo(
-    "#hero > div",
-    { opacity: 0, y: 30 },
-    { opacity: 1, y: 0, duration: 1, stagger: 0.1 },
-  );
-
-  // About section on scroll
-  gsap.fromTo(
-    "#about .space-y-6, #about .grid",
-    { opacity: 0, y: 30 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      stagger: 0.15,
-      scrollTrigger: {
-        trigger: "#about",
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
-    },
-  );
-
-  // Skills section
-  gsap.fromTo(
-    "#skills > div > div",
-    { opacity: 0, y: 30 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      stagger: 0.15,
-      scrollTrigger: {
-        trigger: "#skills",
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
-    },
-  );
-
-  // Projects cards
-  gsap.fromTo(
-    "#projects article",
-    { opacity: 0, y: 30 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      scrollTrigger: {
-        trigger: "#projects",
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
-    },
-  );
-
-  // Contact section
-  gsap.fromTo(
-    "#contact > div > div",
-    { opacity: 0, y: 30 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      stagger: 0.15,
-      scrollTrigger: {
-        trigger: "#contact",
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
-    },
-  );
+const initAnimations = () => {
+  animateHero();
+  animateAbout();
+  animateSkills();
+  animateProjects();
+  animateContact();
 };
 
 const handleScroll = () => {
@@ -112,6 +55,9 @@ const handleScroll = () => {
     }
   }
 };
+
+// Icon map for dynamic <component :is> usage
+const iconMap = { Palette, Zap, Accessibility, Smartphone, Mail, CodeXml, Link };
 
 onMounted(() => {
   lenis = new Lenis({
@@ -148,21 +94,7 @@ onMounted(() => {
   gsap.ticker.add(ScrollTrigger.update);
 
   // Run animations
-  animateOnScroll();
-
-  createIcons({
-    icons: {
-      Palette,
-      Zap,
-      Accessibility,
-      Smartphone,
-      Mail,
-      CodeXml,
-      Link,
-      ArrowRight,
-      ExternalLink,
-    },
-  });
+  initAnimations();
 });
 
 onUnmounted(() => {
@@ -204,29 +136,18 @@ const scrollTo = (id) => {
         </button>
 
         <!-- Links -->
-        <ul class="hidden md:flex items-center gap-8">
+        <ul class="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
           <li v-for="link in ['about', 'skills', 'projects', 'contact']" :key="link">
             <button
               :id="`nav-${link}`"
-              class="capitalize text-sm font-medium tracking-wide transition-colors duration-200 cursor-pointer"
-              :class="activeSection === link ? 'text-primary' : 'text-white/50 hover:text-white'"
+              class="capitalize text-md font-bold tracking-wide transition-colors duration-200 cursor-pointer"
+              :class="activeSection === link ? 'text-primary' : 'text-white/50 hover:text-primary'"
               @click="scrollTo(link)"
             >
               {{ link }}
             </button>
           </li>
         </ul>
-
-        <!-- CTA -->
-        <a
-          id="nav-cta"
-          href="#contact"
-          class="hidden md:inline-flex items-center gap-2 bg-primary text-brand-black text-sm font-bold px-5 py-2.5 rounded-full hover:bg-secondary transition-colors duration-200"
-          @click.prevent="scrollTo('contact')"
-        >
-          Hire Me
-          <i data-lucide="arrow-right" class="size-4 stroke-[2.5]"></i>
-        </a>
       </div>
     </nav>
 
@@ -241,51 +162,60 @@ const scrollTo = (id) => {
         <!-- Text -->
         <div class="flex-1 space-y-8">
           <div class="space-y-4">
-            <h1 class="text-7xl lg:text-6xl font-extrabold leading-none tracking-tight">
-              Hi, I'm
-              <span class="group inline-grid grid-cols-1 grid-rows-1 overflow-hidden align-bottom">
-                <span
-                  class="col-start-1 row-start-1 transition-all duration-500 ease-in-out group-hover:-translate-y-full group-hover:opacity-0"
-                  >Andy</span
-                >
-                <span
-                  class="col-start-1 row-start-1 translate-y-full opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 text-primary"
-                  >Vilamuzz</span
-                >
-              </span>
-            </h1>
-            <p class="text-2xl text-primary font-bold">Frontend Developer</p>
+            <div class="overflow-hidden">
+              <h1
+                class="hero-title text-7xl lg:text-6xl font-extrabold leading-none tracking-tight"
+              >
+                Hi, I'm
+                <span class="group inline-grid grid-cols-1 grid-rows-1 overflow-hidden pb-3">
+                  <span
+                    class="col-start-1 row-start-1 transition-all duration-500 ease-in-out group-hover:-translate-y-full group-hover:opacity-0"
+                    >Andy</span
+                  >
+                  <span
+                    class="col-start-1 row-start-1 translate-y-full opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 text-primary"
+                    >Vilamuzz</span
+                  >
+                </span>
+              </h1>
+            </div>
+            <div class="overflow-hidden">
+              <p class="hero-subtitle text-2xl text-primary font-bold">Fullstack Developer</p>
+            </div>
           </div>
 
-          <p class="text-white/50 text-lg leading-relaxed max-w-lg">
-            Crafting robust system, high-performance web experiences with a passion for clean code
-            and delightful interactions.
-          </p>
-
+          <div class="overflow-hidden">
+            <p class="hero-description text-white/50 text-lg leading-relaxed max-w-lg">
+              Crafting robust system, high-performance web experiences with a passion for clean code
+              and delightful interactions.
+            </p>
+          </div>
           <div class="flex flex-wrap gap-4">
             <button
-              id="hero-projects-btn"
-              class="group flex items-center gap-2.5 bg-primary text-brand-black font-bold px-8 py-4 rounded-full hover:bg-secondary transition-all duration-200 hover:scale-105 cursor-pointer"
+              id="hero-cv-btn"
+              class="group relative flex items-center gap-2.5 bg-primary text-brand-black font-bold px-8 py-3 rounded-full cursor-pointer overflow-hidden"
               @click="scrollTo('projects')"
+              @mouseenter="animateButtonHover"
+              @mouseleave="animateButtonHoverOut"
             >
-              View Projects
-              <i
-                data-lucide="arrow-right"
-                class="size-4 stroke-[2.5] group-hover:translate-x-1 transition-transform"
-              ></i>
-            </button>
-            <button
-              id="hero-about-btn"
-              class="flex items-center gap-2.5 border border-white/15 text-white/70 font-semibold px-8 py-4 rounded-full hover:border-primary/50 hover:text-white transition-all duration-200 cursor-pointer"
-              @click="scrollTo('about')"
-            >
-              About Me
+              <!-- Ripple circle (behind icon) -->
+              <div
+                class="ripple absolute right-8 w-10 h-10 bg-white rounded-full pointer-events-none scale-0"
+              ></div>
+
+              <!-- Content -->
+              <span class="relative z-10">Download CV</span>
+              <div
+                class="relative z-10 bg-white rounded-full p-2 group-hover:bg-black group-hover:text-white transition-colors duration-300"
+              >
+                <ArrowRight class="size-4" />
+              </div>
             </button>
           </div>
         </div>
 
         <!-- Hero card -->
-        <div class="flex-shrink-0 relative">
+        <div id="hero-card" class="flex-shrink-0 relative">
           <!-- Glowing border card -->
           <div class="relative w-72 h-72 lg:w-80 lg:h-80">
             <!-- Card -->
@@ -308,21 +238,6 @@ const scrollTo = (id) => {
         </div>
       </div>
     </section>
-
-    <!-- ─── MARQUEE ──────────────────────────────────────────────────── -->
-    <div class="relative border-y border-white/5 bg-brand-navy/50 py-5 overflow-hidden">
-      <div class="flex gap-12 animate-[marquee_25s_linear_infinite] whitespace-nowrap w-max">
-        <span
-          v-for="(item, i) in marqueeItems"
-          :key="i"
-          class="text-sm font-semibold tracking-widest uppercase flex items-center gap-3"
-          :class="i % 4 === 0 ? 'text-primary' : 'text-white/25'"
-        >
-          {{ item }}
-          <span class="text-white/10">◆</span>
-        </span>
-      </div>
-    </div>
 
     <!-- ─── ABOUT ─────────────────────────────────────────────────────── -->
     <section id="about" class="py-32 px-6">
@@ -362,22 +277,22 @@ const scrollTo = (id) => {
             <div
               v-for="card in [
                 {
-                  icon: 'palette',
+                  icon: Palette,
                   title: 'UI Design',
                   desc: 'Clean, purposeful interfaces that delight users.',
                 },
                 {
-                  icon: 'zap',
+                  icon: Zap,
                   title: 'Performance',
                   desc: 'Optimised bundles, lazy loading & fast paint times.',
                 },
                 {
-                  icon: 'accessibility',
+                  icon: Accessibility,
                   title: 'Accessibility',
                   desc: 'WCAG-compliant, keyboard-navigable experiences.',
                 },
                 {
-                  icon: 'smartphone',
+                  icon: Smartphone,
                   title: 'Responsive',
                   desc: 'Flawless across every screen size and device.',
                 },
@@ -386,7 +301,7 @@ const scrollTo = (id) => {
               class="group bg-brand-navy border border-white/5 rounded-2xl p-6 hover:border-primary/30 hover:bg-brand-navy/80 transition-all duration-300 cursor-default"
             >
               <div class="mb-3 text-primary">
-                <i :data-lucide="card.icon" class="size-8"></i>
+                <component :is="iconMap[card.icon]" class="size-8" />
               </div>
               <h3 class="text-white font-bold mb-1.5 group-hover:text-primary transition-colors">
                 {{ card.title }}
@@ -426,7 +341,7 @@ const scrollTo = (id) => {
                   items: ['Go', 'JavaScript', 'TypeScript'],
                 },
                 {
-                  title: 'Frontend',
+                  title: 'Fullstack',
                   items: ['Vue 3', 'React', 'Tailwind CSS', 'Pinia', 'Vite'],
                 },
                 {
@@ -489,7 +404,7 @@ const scrollTo = (id) => {
                   :href="project.link"
                   class="size-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:border-primary/50 hover:text-primary transition-all duration-200"
                 >
-                  <i data-lucide="external-link" class="size-3.5"></i>
+                  <ExternalLink class="size-3.5" />
                 </a>
               </div>
               <h3
@@ -538,19 +453,19 @@ const scrollTo = (id) => {
                 {
                   label: 'Email',
                   value: 'vilamuzz@gmail.com',
-                  icon: 'mail',
+                  icon: Mail,
                   href: 'mailto:vilamuzz@gmail.com',
                 },
                 {
                   label: 'GitHub',
                   value: 'Vilamuzz',
-                  icon: 'codeXml',
+                  icon: CodeXml,
                   href: 'https://github.com/Vilamuzz',
                 },
                 {
                   label: 'LinkedIn',
                   value: 'Andy Kasa',
-                  icon: 'link',
+                  icon: Link,
                   href: 'https://www.linkedin.com/in/andy-kasa',
                 },
               ]"
@@ -561,7 +476,7 @@ const scrollTo = (id) => {
               class="group flex flex-col items-center gap-3 border border-white/5 rounded-2xl p-6 hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
             >
               <div class="text-primary mb-1">
-                <i :data-lucide="item.icon" class="size-8"></i>
+                <component :is="iconMap[item.icon]" class="size-8" />
               </div>
               <div>
                 <p class="text-white/30 text-xs font-semibold tracking-widest uppercase mb-1">
@@ -583,7 +498,7 @@ const scrollTo = (id) => {
             class="inline-flex items-center gap-3 bg-primary text-brand-black font-bold text-lg px-10 py-5 rounded-full hover:bg-secondary transition-all duration-200 hover:scale-105"
           >
             Send a Message
-            <i data-lucide="arrow-right" class="size-5 stroke-[2.5]"></i>
+            <ArrowRight class="size-5" :stroke-width="2.5" />
           </a>
         </div>
       </div>
