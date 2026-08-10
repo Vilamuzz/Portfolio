@@ -1,0 +1,41 @@
+[
+  {
+    "title": "Performance Optimization",
+    "bgClass": "bg-brand-navy",
+    "imageBgClass": "bg-primary",
+    "image": "/img/performance.jpg",
+    "skills": [
+      "CPU profiling with pprof",
+      "Connection pool tuning",
+      "Query optimization",
+      "API TTFB reduction",
+      "Redis caching"
+    ]
+  },
+  {
+    "title": "Security Hardening",
+    "bgClass": "bg-black",
+    "imageBgClass": "bg-red-500",
+    "image": "/img/security.jpg",
+    "skills": [
+      "JWT validation & refresh token flow",
+      "IDOR prevention",
+      "Webhook signature verification",
+      "XSS sanitization",
+      "Mass assignment protection"
+    ]
+  },
+  {
+    "title": "Infrastructure & Deployment",
+    "bgClass": "bg-brand-navy",
+    "imageBgClass": "bg-green-500",
+    "image": "/img/infrastructure.jpg",
+    "skills": [
+      "Docker & Docker Compose",
+      "Cloudflare Tunnels",
+      "GitHub Actions CI/CD",
+      "Production debugging",
+      "Traefik/Dokploy SSL management"
+    ]
+  }
+]
