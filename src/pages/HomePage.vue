@@ -31,6 +31,7 @@ const { animateProjects } = useProjectAnimation();
 
 let lenis = null;
 let rafId = null;
+let ctx = null;
 
 const initAnimations = () => {
   animateHero();
@@ -56,34 +57,25 @@ onMounted(() => {
   };
   rafId = requestAnimationFrame(raf);
 
-  // Initialize GSAP ScrollTrigger with Lenis proxy
+  // Initialize GSAP ScrollTrigger
   gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.scrollerProxy("body", {
-    scrollTop(value) {
-      return arguments.length ? lenis.scrollTo(value) : lenis.scroll;
-    },
-    getBoundingClientRect() {
-      return {
-        top: 0,
-        left: 0,
-        width: window.innerWidth,
-        height: window.innerHeight,
-      };
-    },
-    pinType: document.body.style.transform ? "transform" : "fixed",
-  });
 
   lenis.on("scroll", ScrollTrigger.update);
   gsap.ticker.add(ScrollTrigger.update);
 
-  // Run animations
-  initAnimations();
+  // Wrap all animations in a context for proper cleanup in SPAs
+  ctx = gsap.context(() => {
+    initAnimations();
+  });
 });
 
 onUnmounted(() => {
   if (rafId) cancelAnimationFrame(rafId);
   if (lenis) lenis.destroy();
-  ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  gsap.ticker.remove(ScrollTrigger.update);
+
+  // Revert all GSAP animations and ScrollTriggers created in this context
+  if (ctx) ctx.revert();
 });
 </script>
 
@@ -166,14 +158,12 @@ onUnmounted(() => {
 
             <!-- Hero Image -->
             <div id="hero-card" class="shrink-0 relative opacity-0 translate-y-15">
-              <!-- Image container with bottom border to anchor it -->
-              <div class="relative w-72 h-72 lg:w-80 lg:h-96 flex items-end">
-                <!-- <img
-                  src="/me.png"
+              <div class="relative w-auto h-72 lg:w-80 lg:h-96 flex items-end justify-center">
+                <img
+                  src="@/assets/img/me.png"
                   alt="Andy Vilamuzz"
-                  class="w-full h-full object-cover rounded-t-3xl border-b-4 border-primary shadow-2xl"
-                /> -->
-                <div class="w-30 h-30 bg-primary"></div>
+                  class="relative z-10 w-auto h-full object-cover border-b-4 border-primary pointer-events-none"
+                />
               </div>
             </div>
           </div>
@@ -350,7 +340,7 @@ onUnmounted(() => {
             <div class="absolute inset-0 w-full h-full">
               <div :class="['background absolute inset-0 w-full h-full', item.bgClass]"></div>
               <div
-                class="content absolute inset-0 w-full h-full flex flex-col justify-center px-32 z-10"
+                class="content absolute inset-0 w-full h-full flex flex-col justify-end px-32 pb-[15%] z-10"
               >
                 <div class="overflow-hidden mb-6">
                   <h3 class="expertise-item-title text-3xl font-bold inline-block">
