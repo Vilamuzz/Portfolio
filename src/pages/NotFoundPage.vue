@@ -80,50 +80,50 @@
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount, ref } from "vue";
-import gsap from "gsap";
+import { onMounted, onBeforeUnmount, ref } from 'vue'
+import gsap from 'gsap'
 
-const errorCodeRef = ref(null);
-const headlineRef = ref(null);
-const subtextRef = ref(null);
-const btnRef = ref(null);
-const particleCanvas = ref(null);
+const errorCodeRef = ref(null)
+const headlineRef = ref(null)
+const subtextRef = ref(null)
+const btnRef = ref(null)
+const particleCanvas = ref(null)
 
-let animCtx = null;
-let particleAnimId = null;
+let animCtx = null
+let particleAnimId = null
 
 // ─── Entrance Animations ─────────────────────────────────────────────────────
 onMounted(() => {
-  const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-  tl.to(errorCodeRef.value, { y: "0%", duration: 0.7 })
-    .to(headlineRef.value, { y: "0%", duration: 0.8 }, "-=0.45")
-    .to(subtextRef.value, { y: "0%", duration: 0.8 }, "-=0.5")
-    .to(btnRef.value, { opacity: 1, y: 0, duration: 0.6 }, "-=0.5");
+  tl.to(errorCodeRef.value, { y: '0%', duration: 0.7 })
+    .to(headlineRef.value, { y: '0%', duration: 0.8 }, '-=0.45')
+    .to(subtextRef.value, { y: '0%', duration: 0.8 }, '-=0.5')
+    .to(btnRef.value, { opacity: 1, y: 0, duration: 0.6 }, '-=0.5')
 
-  initParticles();
-});
+  initParticles()
+})
 
 onBeforeUnmount(() => {
-  if (particleAnimId) cancelAnimationFrame(particleAnimId);
-});
+  if (particleAnimId) cancelAnimationFrame(particleAnimId)
+})
 
 // ─── Floating Particles ───────────────────────────────────────────────────────
 function initParticles() {
-  const canvas = particleCanvas.value;
-  if (!canvas) return;
+  const canvas = particleCanvas.value
+  if (!canvas) return
 
-  animCtx = canvas.getContext("2d");
+  animCtx = canvas.getContext('2d')
 
   const resize = () => {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  };
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
+  }
 
-  resize();
-  window.addEventListener("resize", resize);
+  resize()
+  window.addEventListener('resize', resize)
 
-  const COUNT = 60;
+  const COUNT = 60
   const particles = Array.from({ length: COUNT }, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
@@ -131,26 +131,26 @@ function initParticles() {
     vx: (Math.random() - 0.5) * 0.3,
     vy: (Math.random() - 0.5) * 0.3,
     alpha: Math.random() * 0.4 + 0.1,
-  }));
+  }))
 
   const draw = () => {
-    animCtx.clearRect(0, 0, canvas.width, canvas.height);
+    animCtx.clearRect(0, 0, canvas.width, canvas.height)
     for (const p of particles) {
-      animCtx.beginPath();
-      animCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      animCtx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-      animCtx.fill();
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < 0) p.x = canvas.width;
-      if (p.x > canvas.width) p.x = 0;
-      if (p.y < 0) p.y = canvas.height;
-      if (p.y > canvas.height) p.y = 0;
+      animCtx.beginPath()
+      animCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+      animCtx.fillStyle = `rgba(255,255,255,${p.alpha})`
+      animCtx.fill()
+      p.x += p.vx
+      p.y += p.vy
+      if (p.x < 0) p.x = canvas.width
+      if (p.x > canvas.width) p.x = 0
+      if (p.y < 0) p.y = canvas.height
+      if (p.y > canvas.height) p.y = 0
     }
-    particleAnimId = requestAnimationFrame(draw);
-  };
+    particleAnimId = requestAnimationFrame(draw)
+  }
 
-  draw();
+  draw()
 }
 </script>
 

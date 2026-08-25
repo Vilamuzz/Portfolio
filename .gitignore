@@ -13,9 +13,11 @@ dist
 dist-ssr
 coverage
 *.local
+skills-lock.json
 
 # Editor directories and files
 .vscode/*
+.agents/*
 !.vscode/extensions.json
 .idea
 *.suo

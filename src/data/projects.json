@@ -2,6 +2,8 @@
   {
     "tag": "Web App",
     "title": "Nyuwi Creation",
+    "year": "2024",
+    "role": "Backend Developer",
     "bgClass": "bg-primary",
     "img": "/img/handicraft.jpg",
     "link": "https://github.com/Vilamuzz/Nyuwi-Creation-Project"
@@ -9,6 +11,8 @@
   {
     "tag": "Web App",
     "title": "WaraDesa",
+    "year": "2025",
+    "role": "Backend Developer",
     "bgClass": "bg-secondary",
     "img": "/img/village.jpg",
     "link": "https://github.com/adkurnwn/PBL-CMS-Desa-BIPTEK"
@@ -16,6 +20,8 @@
   {
     "tag": "Web App",
     "title": "HelpDesk",
+    "year": "2025",
+    "role": "Backend Developer",
     "bgClass": "bg-primary",
     "img": "/img/customer-service.jpg",
     "link": "https://github.com/Vilamuzz/HD-ECOM-BE"
@@ -23,6 +29,8 @@
   {
     "tag": "Web App",
     "title": "YOTA",
+    "year": "2026",
+    "role": "Fullstack Developer",
     "bgClass": "bg-secondary",
     "img": "/img/foster-care.jpg",
     "link": "dev-yota.vilamuzz.me"

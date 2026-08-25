@@ -2,66 +2,77 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTextAnimation } from "./useTextAnimation";
 import { useButtonAnimation } from "./useButtonAnimation";
+import { useExperienceAnimation } from "./useExperienceAnimation";
 
 export function useProjectAnimation() {
   const { animateTextSlideUp, animateWaveText } = useTextAnimation();
   const { animatePrimaryButtonIntro } = useButtonAnimation();
+  const { animateExperience } = useExperienceAnimation();
 
   const animateProjects = () => {
     const projectsTrack = document.querySelector("#projects .flex.w-max");
     if (!projectsTrack) return;
 
-    const totalCardWidth = projectsTrack.scrollWidth - window.innerWidth;
-    const scrollDuration = totalCardWidth / window.innerWidth;
+    const endPanel = document.querySelector("#projects-end-panel");
+    const endPanelWidth = endPanel.offsetWidth;
+    const lastCardWidth = Math.max(0, window.innerWidth - endPanelWidth);
+    const endPanelTargetX = Math.min(0, -(endPanel.offsetLeft - lastCardWidth));
 
-    // Main timeline that handles vertical scroll pin, horizontal translation, and trailing bar reveals
+    const step1Duration = Math.abs(endPanelTargetX) / window.innerWidth;
+    const barsDuration = 0.5;
+    const phaseADuration = endPanelWidth / window.innerWidth;
+    const phaseBDuration = lastCardWidth / window.innerWidth;
+    const experienceTotalDuration = phaseADuration + phaseBDuration;
+    const experience = document.querySelector("#experience");
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: "#hero-projects-wrapper",
         start: "top top",
-        end: () => `+=${window.innerWidth + totalCardWidth + 500}`,
+        end: () =>
+          `+=${window.innerWidth * (1 + step1Duration + barsDuration + experienceTotalDuration)}`,
         pin: true,
-        scrub: 1,
+        scrub: 0.1,
         anticipatePin: 0,
         invalidateOnRefresh: true,
+        refreshPriority: 1,
       },
     });
 
-    // 1. Slide #projects over #hero (covers it)
+    // Step 1: Slide #projects container into viewport
     tl.to("#projects", {
       x: "-100vw",
       ease: "none",
       duration: 1,
     });
 
-    // 2. Scroll project cards horizontally until the trailing panel is fully in view
+    // Step 2: Slide projectsTrack until endPanel reaches its pinned position
     tl.to(projectsTrack, {
-      x: -totalCardWidth,
+      x: endPanelTargetX,
       ease: "none",
-      duration: scrollDuration,
+      duration: step1Duration,
     });
 
-    // 3. Trigger reusable text reveal animations when each card enters the viewport
     const cards = document.querySelectorAll("#projects a");
-    cards.forEach((card) => {
+    cards.forEach((card, index) => {
       const pTags = card.querySelectorAll(".project-meta-item");
-      const chars = card.querySelectorAll(".project-title-char");
+      const titleEl = card.querySelector("h3");
 
       if (pTags.length > 0) {
         animateTextSlideUp(pTags, {
           trigger: card,
           containerAnimation: tl,
-          start: "left 70%",
+          start: `left ${80 - index * -10}%`,
           duration: 0.5,
           stagger: 0.1,
         });
       }
 
-      if (chars.length > 0) {
-        animateWaveText(chars, {
+      if (titleEl) {
+        animateWaveText(titleEl, {
           trigger: card,
           containerAnimation: tl,
-          start: "left 70%",
+          start: `left ${80 - index * -10}%`,
           staggerEnter: 0.03,
           staggerExit: 0,
         });
@@ -74,7 +85,7 @@ export function useProjectAnimation() {
         ScrollTrigger.create({
           trigger: card,
           containerAnimation: tl,
-          start: "left 70%",
+          start: `left ${80 - index * -10}%`,
           onEnter: () => {
             gsap.to(btnIcon, {
               scale: 1,
@@ -97,58 +108,7 @@ export function useProjectAnimation() {
       }
     });
 
-    // 4. Trigger wave animation for the trailing Projects heading
-    const headingChars = document.querySelectorAll("#projects .projects-heading-char");
-    if (headingChars.length > 0) {
-      const endPanel = document.querySelector("#projects-end-panel");
-
-      animateWaveText(headingChars, {
-        trigger: endPanel || headingChars[0],
-        containerAnimation: tl,
-        start: "left 80%",
-        staggerEnter: 0.04,
-        staggerExit: 0,
-      });
-    }
-
-    // 5. Trigger slide-up animation for the trailing list items
-    const listItems = document.querySelectorAll("#projects .projects-list-item");
-    if (listItems.length > 0) {
-      const endPanel = document.querySelector("#projects-end-panel");
-
-      animateTextSlideUp(listItems, {
-        trigger: endPanel || listItems[0],
-        containerAnimation: tl,
-        start: "left 80%",
-        duration: 0.5,
-        stagger: 0.08,
-      });
-    }
-
-    // Trigger slide-up animation for the trailing paragraph lines
-    const endTexts = document.querySelectorAll("#projects .projects-end-text");
-    if (endTexts.length > 0) {
-      const endPanel = document.querySelector("#projects-end-panel");
-
-      animateTextSlideUp(endTexts, {
-        trigger: endPanel || endTexts[0],
-        containerAnimation: tl,
-        start: "left 80%",
-        duration: 0.5,
-        stagger: 0.08,
-      });
-    }
-
-    // Trigger primary button intro entrance animation for Projects end panel
-    const endBtn = document.querySelector("#projects-end-panel .primary-button");
-    if (endBtn) {
-      animatePrimaryButtonIntro(endBtn, {
-        containerAnimation: tl,
-        start: "left 80%",
-      });
-    }
-
-    // 6. Animate trailing divider bars AFTER horizontal scroll is completely finished
+    // Step 3: Animate project list bars while endPanel & projectsTrack stay pinned in place
     const bars = document.querySelectorAll("#projects .project-list-bar");
     if (bars.length > 0) {
       gsap.set(bars, { scaleX: 0, transformOrigin: "left center" });
@@ -157,9 +117,72 @@ export function useProjectAnimation() {
         scaleX: 1,
         stagger: 0.15,
         ease: "none",
-        duration: 0.5,
+        duration: barsDuration,
       });
     }
+
+    // Step 4A: Slide experience section ON TOP of endPanel until touching the last project card
+    if (experience) {
+      tl.to(experience, {
+        x: `-${endPanelWidth}px`,
+        ease: "none",
+        duration: phaseADuration,
+      });
+
+      // Step 4B: Experience touches the last card; projectsTrack slides left by lastCardWidth.
+      // Since experience is inside projectsTrack with x: -endPanelWidth, moving projectsTrack
+      // pushes the last card off-screen and moves experience to 0vw in 100% perfect sync!
+      if (lastCardWidth > 0) {
+        tl.to(projectsTrack, {
+          x: endPanelTargetX - lastCardWidth,
+          ease: "none",
+          duration: phaseBDuration,
+        });
+      }
+    }
+
+    const headingEl = document.querySelector("#projects-end-panel .projects-heading");
+    if (headingEl) {
+      animateWaveText(headingEl, {
+        trigger: endPanel || headingEl,
+        containerAnimation: tl,
+        start: "left right+=5%",
+        staggerEnter: 0.04,
+        staggerExit: 0,
+      });
+    }
+
+    const listItems = document.querySelectorAll("#projects .projects-list-item");
+    if (listItems.length > 0) {
+      animateTextSlideUp(listItems, {
+        trigger: endPanel || listItems[0],
+        containerAnimation: tl,
+        start: "left right",
+        duration: 0.5,
+        stagger: 0.08,
+      });
+    }
+
+    const endTexts = document.querySelectorAll("#projects .projects-end-text");
+    if (endTexts.length > 0) {
+      animateTextSlideUp(endTexts, {
+        trigger: endPanel || endTexts[0],
+        containerAnimation: tl,
+        start: "left right-=5%",
+        duration: 0.5,
+        stagger: 0.08,
+      });
+    }
+
+    const endBtn = document.querySelector("#projects-end-panel .primary-button");
+    if (endBtn) {
+      animatePrimaryButtonIntro(endBtn, {
+        containerAnimation: tl,
+        start: "left right-=5%",
+      });
+    }
+
+    animateExperience(tl);
   };
 
   return { animateProjects };

@@ -1,0 +1,18 @@
+[
+  {
+    "place": "PT. BIPTEK Indonesia",
+    "img": "/img/biptek.jpeg",
+    "role": "Backend Developer",
+    "start": "Feb 2025",
+    "end": "Jul 2025",
+    "description": ""
+  },
+  {
+    "place": "PT. Solutionlabs Indonesia",
+    "img": "/img/solutionlabs.jpeg",
+    "role": "Fullstack Developer",
+    "start": "Aug 2025",
+    "end": "Feb 2026",
+    "description": ""
+  }
+]

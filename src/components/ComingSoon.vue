@@ -4,7 +4,9 @@
   >
     <!-- Background label -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-      <span class="text-[20vw] font-black text-white/[0.025] leading-none tracking-tighter uppercase">
+      <span
+        class="text-[20vw] font-black text-white/[0.025] leading-none tracking-tighter uppercase"
+      >
         {{ label }}
       </span>
     </div>
@@ -56,7 +58,10 @@
 
       <!-- Subtext -->
       <div class="overflow-hidden">
-        <p ref="subtextRef" class="text-white/40 text-base max-w-sm leading-relaxed translate-y-full">
+        <p
+          ref="subtextRef"
+          class="text-white/40 text-base max-w-sm leading-relaxed translate-y-full"
+        >
           {{ description }}
         </p>
       </div>
@@ -82,59 +87,59 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
-import gsap from "gsap";
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import gsap from 'gsap'
 
 defineProps({
-  label: { type: String, default: "Soon" },
-  tag: { type: String, default: "Page" },
-  description: { type: String, default: "This page is under construction. Check back later." },
-});
+  label: { type: String, default: 'Soon' },
+  tag: { type: String, default: 'Page' },
+  description: { type: String, default: 'This page is under construction. Check back later.' },
+})
 
-const tagRef = ref(null);
-const headlineRef = ref(null);
-const subtextRef = ref(null);
-const dotsRef = ref(null);
-const navRef = ref(null);
-const progressBar = ref(null);
-const particleCanvas = ref(null);
-let particleAnimId = null;
+const tagRef = ref(null)
+const headlineRef = ref(null)
+const subtextRef = ref(null)
+const dotsRef = ref(null)
+const navRef = ref(null)
+const progressBar = ref(null)
+const particleCanvas = ref(null)
+let particleAnimId = null
 
 onMounted(() => {
   // Entrance animation
-  const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
   tl.to(navRef.value, { opacity: 1, duration: 0.5 })
-    .to(tagRef.value, { y: "0%", duration: 0.6 }, "-=0.3")
-    .to(headlineRef.value, { y: "0%", duration: 0.8 }, "-=0.45")
-    .to(subtextRef.value, { y: "0%", duration: 0.7 }, "-=0.5")
-    .to(dotsRef.value, { opacity: 1, duration: 0.5 }, "-=0.4");
+    .to(tagRef.value, { y: '0%', duration: 0.6 }, '-=0.3')
+    .to(headlineRef.value, { y: '0%', duration: 0.8 }, '-=0.45')
+    .to(subtextRef.value, { y: '0%', duration: 0.7 }, '-=0.5')
+    .to(dotsRef.value, { opacity: 1, duration: 0.5 }, '-=0.4')
 
   // Progress bar subtle idle animation
   gsap.fromTo(
     progressBar.value,
     { scaleX: 0 },
-    { scaleX: 0.65, duration: 2.5, ease: "power1.out", delay: 0.6 }
-  );
+    { scaleX: 0.65, duration: 2.5, ease: 'power1.out', delay: 0.6 },
+  )
 
-  initParticles();
-});
+  initParticles()
+})
 
 onBeforeUnmount(() => {
-  if (particleAnimId) cancelAnimationFrame(particleAnimId);
-});
+  if (particleAnimId) cancelAnimationFrame(particleAnimId)
+})
 
 function initParticles() {
-  const canvas = particleCanvas.value;
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
+  const canvas = particleCanvas.value
+  if (!canvas) return
+  const ctx = canvas.getContext('2d')
 
   const resize = () => {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  };
-  resize();
-  window.addEventListener("resize", resize);
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
+  }
+  resize()
+  window.addEventListener('resize', resize)
 
   const particles = Array.from({ length: 50 }, () => ({
     x: Math.random() * canvas.width,
@@ -143,25 +148,25 @@ function initParticles() {
     vx: (Math.random() - 0.5) * 0.25,
     vy: (Math.random() - 0.5) * 0.25,
     alpha: Math.random() * 0.35 + 0.05,
-  }));
+  }))
 
   const draw = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     for (const p of particles) {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-      ctx.fill();
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < 0) p.x = canvas.width;
-      if (p.x > canvas.width) p.x = 0;
-      if (p.y < 0) p.y = canvas.height;
-      if (p.y > canvas.height) p.y = 0;
+      ctx.beginPath()
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+      ctx.fillStyle = `rgba(255,255,255,${p.alpha})`
+      ctx.fill()
+      p.x += p.vx
+      p.y += p.vy
+      if (p.x < 0) p.x = canvas.width
+      if (p.x > canvas.width) p.x = 0
+      if (p.y < 0) p.y = canvas.height
+      if (p.y > canvas.height) p.y = 0
     }
-    particleAnimId = requestAnimationFrame(draw);
-  };
-  draw();
+    particleAnimId = requestAnimationFrame(draw)
+  }
+  draw()
 }
 </script>
 
@@ -177,7 +182,14 @@ function initParticles() {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.2; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.2); }
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
 }
 </style>

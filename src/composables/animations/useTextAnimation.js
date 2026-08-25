@@ -1,102 +1,110 @@
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from 'gsap'
+import { SplitText } from 'gsap/SplitText'
+
+gsap.registerPlugin(SplitText)
 
 export function useTextAnimation() {
-  /**
-   * Animates text elements sliding up from y: 120% to 0%.
-   * Supports standard vertical ScrollTrigger or horizontal containerAnimation.
-   */
-  const animateTextSlideUp = (elements, options = {}) => {
+  const animateTextSlideUp = (targets, options = {}) => {
     const {
-      trigger = elements,
+      trigger = null,
       containerAnimation = null,
-      start = "top 85%",
+      start = 'top 85%',
       duration = 0.5,
       stagger = 0.1,
-      ease = "power2.out",
-      toggleActions = "play none none reverse",
-    } = options;
+      ease = 'power2.out',
+      toggleActions = 'play none none reverse',
+    } = options
 
-    if (!elements || (Array.isArray(elements) && elements.length === 0)) return;
+    if (!targets || (targets.length !== undefined && targets.length === 0)) return
 
-    gsap.set(elements, { y: "120%" });
+    const split = SplitText.create(targets, { type: 'lines', mask: 'lines' })
+    if (!split.lines.length) return
 
     const scrollTriggerConfig = {
-      trigger,
+      trigger: trigger || split.lines[0],
       start,
       toggleActions,
-    };
+    }
 
     if (containerAnimation) {
-      scrollTriggerConfig.containerAnimation = containerAnimation;
+      scrollTriggerConfig.containerAnimation = containerAnimation
     }
 
     return gsap.fromTo(
-      elements,
-      { y: "120%" },
+      split.lines,
+      { y: '120%' },
       {
-        y: "0%",
+        y: '0%',
         duration,
         stagger,
         ease,
         scrollTrigger: scrollTriggerConfig,
       },
-    );
-  };
+    )
+  }
 
-  /**
-   * Animates text characters with a wave stagger effect on enter,
-   * and slides all characters down simultaneously on leaveBack.
-   */
-  const animateWaveText = (chars, options = {}) => {
+  const animateWaveText = (targets, options = {}) => {
     const {
-      trigger = chars,
+      trigger = null,
       containerAnimation = null,
-      start = "top 80%",
+      start = 'top 80%',
       durationEnter = 0.5,
       durationExit = 0.4,
       staggerEnter = 0.03,
       staggerExit = 0,
-      easeEnter = "power2.out",
-      easeExit = "power2.in",
-    } = options;
+      easeEnter = 'power2.out',
+      easeExit = 'power2.in',
+    } = options
 
-    if (!chars || (Array.isArray(chars) && chars.length === 0)) return;
+    if (!targets || (targets.length !== undefined && targets.length === 0)) return
 
-    gsap.set(chars, { y: "120%" });
+    const split = SplitText.create(targets, { type: 'chars', mask: 'chars' })
+    if (!split.chars.length) return
+
+    const actualTrigger = trigger || split.chars[0]
 
     const scrollTriggerConfig = {
-      trigger,
+      trigger: actualTrigger,
       start,
       onEnter: () => {
-        gsap.to(chars, {
-          y: "0%",
+        gsap.killTweensOf(split.chars)
+        gsap.to(split.chars, {
+          y: '0%',
           duration: durationEnter,
           stagger: staggerEnter,
           ease: easeEnter,
-          overwrite: "auto",
-        });
+        })
       },
       onLeaveBack: () => {
-        gsap.to(chars, {
-          y: "120%",
+        gsap.killTweensOf(split.chars)
+        gsap.to(split.chars, {
+          y: '120%',
           duration: durationExit,
           stagger: staggerExit,
           ease: easeExit,
-          overwrite: "auto",
-        });
+        })
       },
-    };
-
-    if (containerAnimation) {
-      scrollTriggerConfig.containerAnimation = containerAnimation;
     }
 
-    return ScrollTrigger.create(scrollTriggerConfig);
-  };
+    if (containerAnimation) {
+      scrollTriggerConfig.containerAnimation = containerAnimation
+    }
+
+    return gsap.fromTo(
+      split.chars,
+      { y: '120%' },
+      {
+        y: '0%',
+        duration: durationEnter,
+        stagger: staggerEnter,
+        ease: easeEnter,
+        scrollTrigger: scrollTriggerConfig,
+      },
+    )
+  }
 
   return {
     animateTextSlideUp,
     animateWaveText,
-  };
+  }
 }
