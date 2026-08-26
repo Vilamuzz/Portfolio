@@ -19,6 +19,11 @@ const router = createRouter({
       component: () => import('@/pages/ExpertisePage.vue'),
     },
     {
+      path: '/experience',
+      name: 'experience',
+      component: () => import('@/pages/ExperiencePage.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('@/pages/NotFoundPage.vue'),

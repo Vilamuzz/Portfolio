@@ -1,9 +1,10 @@
-import gsap from 'gsap'
-import { SplitText } from 'gsap/SplitText'
-
-gsap.registerPlugin(SplitText)
+import { onUnmounted } from "vue";
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
 
 export function useTextAnimation() {
+  const splits = [];
+
   const animateTextSlideUp = (targets, options = {}) => {
     const {
       trigger = null,
@@ -19,6 +20,8 @@ export function useTextAnimation() {
 
     const split = SplitText.create(targets, { type: 'lines', mask: 'lines' })
     if (!split.lines.length) return
+
+    splits.push(split);
 
     const scrollTriggerConfig = {
       trigger: trigger || split.lines[0],
@@ -61,6 +64,8 @@ export function useTextAnimation() {
     const split = SplitText.create(targets, { type: 'chars', mask: 'chars' })
     if (!split.chars.length) return
 
+    splits.push(split)
+
     const actualTrigger = trigger || split.chars[0]
 
     const scrollTriggerConfig = {
@@ -102,6 +107,12 @@ export function useTextAnimation() {
       },
     )
   }
+
+  onUnmounted(() => {
+    splits.forEach((splitInstance) => {
+      splitInstance.revert();
+    });
+  });
 
   return {
     animateTextSlideUp,

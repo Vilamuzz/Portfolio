@@ -1,14 +1,16 @@
 <script setup>
+import { ref } from "vue";
 import { ArrowUpRight, ArrowDown } from "@lucide/vue";
 import projects from "@/data/projects.json";
 import expertiseItems from "@/data/expertise.json";
 import experienceItems from "@/data/experience.json";
 import projectServices from "@/data/projectServices.json";
 import cvPdf from "@/assets/doc/Curriculum Vitae Andy Kasa Sanjaya.pdf";
-import { useInitAnimation } from "@/composables/animations/useInitAnimation";
+import { useHomePageAnimation } from "@/composables/animations/homepage/useHomePageAnimation";
 import AppFooter from "@/components/AppFooter.vue";
 import AppHeader from "@/components/AppHeader.vue";
 
+const containerRef = ref(null);
 const {
   animateHeroButtonHover,
   animateHeroButtonHoverOut,
@@ -16,13 +18,17 @@ const {
   animateProjectCardHoverOut,
   animatePrimaryButtonHover,
   animatePrimaryButtonHoverOut,
-} = useInitAnimation();
+} = useHomePageAnimation(containerRef);
 </script>
 
 <template>
-  <div class="min-h-screen w-full bg-brand-black font-sans text-white">
+  <div
+    ref="containerRef"
+    class="min-h-screen w-full bg-brand-black font-sans text-white selection:bg-white selection:text-brand-black"
+  >
     <!-- Header/Navigation -->
     <AppHeader />
+
     <!-- ─── HORIZONTAL WRAPPER ──────────────────────────────────── -->
     <div id="hero-projects-wrapper" class="relative w-screen overflow-hidden">
       <div class="flex w-max">
@@ -317,7 +323,9 @@ const {
                 class="content absolute inset-0 w-full h-full flex flex-col justify-end px-32 pb-[15%] z-10"
               >
                 <h3 class="expertise-item-title text-3xl font-bold mb-6">{{ item.title }}</h3>
-                <div class="flex flex-wrap gap-x-4 gap-y-2 max-w-1/3 mb-6 text-sm uppercase">
+                <div
+                  class="flex flex-wrap gap-x-4 gap-y-2 max-w-1/3 mb-6 text-sm uppercase font-mono"
+                >
                   <span v-for="skill in item.skills" :key="skill" class="expertise-item-skill"
                     >/ {{ skill }}</span
                   >

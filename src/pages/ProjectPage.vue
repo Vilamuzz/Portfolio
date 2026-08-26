@@ -1,14 +1,14 @@
 <script setup>
-import { ref, computed, onMounted, watch, nextTick } from "vue";
-import gsap from "gsap";
-import { useLenis } from "@/composables/useLenis";
+import { ref, computed } from "vue";
 import projects from "@/data/projects.json";
 import AppFooter from "@/components/AppFooter.vue";
 import AppHeader from "@/components/AppHeader.vue";
+import { useProjectPageAnimation } from "@/composables/animations/useProjectPageAnimation";
 
 const selectedCategory = ref("All");
 const categories = ["All", "Fullstack", "Frontend", "Backend"];
 
+const containerRef = ref(null);
 const titleRef = ref(null);
 const descRef = ref(null);
 const tabsRef = ref(null);
@@ -23,38 +23,11 @@ const filteredProjects = computed(() => {
   });
 });
 
-onMounted(() => {
-  // Reset scroll position via the global singleton
-  const { scrollToTop } = useLenis();
-  scrollToTop();
-
-  // GSAP entrance animations
-  const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-  tl.fromTo(titleRef.value, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 })
-    .fromTo(descRef.value, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, "-=0.6")
-    .fromTo(tabsRef.value, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, "-=0.5")
-    .fromTo(
-      ".project-card",
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 },
-      "-=0.4",
-    );
-});
-
-watch(selectedCategory, () => {
-  nextTick(() => {
-    gsap.fromTo(
-      ".project-card",
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power2.out" },
-    );
-  });
-});
+useProjectPageAnimation(containerRef, { titleRef, descRef, tabsRef }, selectedCategory);
 </script>
 
 <template>
-  <div class="relative bg-primary min-h-screen w-full text-brand-black font-sans">
+  <div ref="containerRef" class="relative bg-primary min-h-screen w-full text-brand-black font-sans">
     <!-- Header/Navigation -->
     <AppHeader />
 

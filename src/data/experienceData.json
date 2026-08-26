@@ -1,0 +1,104 @@
+{
+  "workExperiences": [
+    {
+      "id": "exp-1",
+      "company": "PT. Solutionlabs Indonesia",
+      "logo": "/img/solutionlabs.jpeg",
+      "role": "Fullstack Developer",
+      "type": "Internship",
+      "period": "Aug 2025 — Feb 2026",
+      "location": "Indonesia",
+      "description": "Architected and delivered scalable web applications, REST APIs, and interactive frontend interfaces using Vue 3, Node.js, and PostgreSQL. Collaborated directly with cross-functional teams to streamline deployment pipelines and enhance application performance.",
+      "skills": [
+        "Vue 3",
+        "Node.js",
+        "PostgreSQL",
+        "Tailwind CSS",
+        "Golang",
+        "Docker",
+        "REST API"
+      ]
+    },
+    {
+      "id": "exp-2",
+      "company": "PT. BIPTEK Indonesia",
+      "logo": "/img/biptek.jpeg",
+      "role": "Backend Developer",
+      "type": "Internship",
+      "period": "Feb 2025 — Jul 2025",
+      "location": "Indonesia",
+      "description": "Engineered robust microservices, database schemas, and caching mechanisms. Optimized query throughput, implemented secure authentication flows, and authored comprehensive API documentation.",
+      "skills": ["PHP", "Laravel", "MySQL", "Docker", "Git", "Rest API"]
+    }
+  ],
+  "certificates": [
+    {
+      "id": "cert-1",
+      "title": "MikroTik Certified Network Associate",
+      "issuer": "Mikrotikls SIA",
+      "issueDate": "2026",
+      "credentialId": "2605NA4259",
+      "link": "https://mikrotik.com/certificates",
+      "skills": ["IP Architecture", "Routing", "Wireless", "Switching"]
+    },
+    {
+      "id": "cert-2",
+      "title": "Programmer Competency Certificate",
+      "issuer": "BNSP",
+      "issueDate": "2026",
+      "credentialId": "-",
+      "link": "#",
+      "skills": [
+        "Logical Thinking",
+        "Algorithms",
+        "Problem Solving",
+        "Web UI/UX",
+        "Version Control"
+      ]
+    },
+    {
+      "id": "cert-3",
+      "title": "Oracle Cloud Infrastructure Foundations I",
+      "issuer": "Oracle Academy",
+      "issueDate": "2024",
+      "credentialId": "-",
+      "link": "#",
+      "skills": ["Cloud Architecture", "Oracle", "Serverless", "Security & IAM"]
+    },
+    {
+      "id": "cert-4",
+      "title": "Red Hat System Administration I",
+      "issuer": "Red Hat Academy",
+      "issueDate": "2024",
+      "credentialId": "-",
+      "link": "#",
+      "skills": [
+        "Linux",
+        "System Administration",
+        "Automation",
+        "Bash Scripting",
+        "Configuration"
+      ]
+    }
+  ],
+  "achievements": [
+    {
+      "id": "achieve-1",
+      "title": "Participant of Olimpiade Vokasi Indonesia",
+      "organization": "Universitas Sebelas Maret",
+      "year": "2023",
+      "award": "Participant",
+      "description": "Participant in the National Vocational Olympics, competing in the Information Technology category.",
+      "tags": []
+    },
+    {
+      "id": "achieve-2",
+      "title": "Participant of CodeFest 002: National Technology Competition",
+      "organization": "Universitas Sumatera Utara",
+      "year": "2026",
+      "award": "Participant",
+      "description": "Participated in the National Technology Competition. Competed in a team of 2, solving logical problem using algorithms.",
+      "tags": []
+    }
+  ]
+}
