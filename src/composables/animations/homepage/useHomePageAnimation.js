@@ -40,8 +40,8 @@ export function useHomePageAnimation(containerRef) {
     ctx = gsap.context(() => {
       animateHero();
       animateProjects();
-      animateExpertise();
       animateExperienceTimeline();
+      animateExpertise();
       animateContact();
     }, containerRef?.value);
   });
