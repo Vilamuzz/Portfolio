@@ -1,17 +1,18 @@
 <script setup>
-import { ref } from 'vue'
-import { ArrowUpRight, ArrowDown } from '@lucide/vue'
-import projects from '@/data/projects.json'
-import expertiseItems from '@/data/expertise.json'
-import experienceData from '@/data/experience.json'
-import services from '@/data/services.json'
-import cvPdf from '@/assets/doc/Curriculum Vitae Andy Kasa Sanjaya.pdf'
-import { useHomePageAnimation } from '@/composables/animations/homepage/useHomePageAnimation'
-import AppFooter from '@/components/AppFooter.vue'
-import AppHeader from '@/components/AppHeader.vue'
+import { ref, computed } from "vue";
+import { ArrowUpRight, ArrowDown } from "@lucide/vue";
+import projects from "@/data/projects.json";
+import expertiseItems from "@/data/expertise.json";
+import experienceData from "@/data/experience.json";
+import services from "@/data/services.json";
+import cvPdf from "@/assets/doc/Curriculum Vitae Andy Kasa Sanjaya.pdf";
+import { useHomePageAnimation } from "@/composables/animations/homepage/useHomePageAnimation";
+import AppFooter from "@/components/AppFooter.vue";
+import AppHeader from "@/components/AppHeader.vue";
 
-const containerRef = ref(null)
-const experienceItems = experienceData.workExperiences
+const containerRef = ref(null);
+const featuredProjects = computed(() => projects.slice(0, 4));
+const experienceItems = experienceData.workExperiences;
 const {
   animateHeroButtonHover,
   animateHeroButtonHoverOut,
@@ -19,7 +20,7 @@ const {
   animateProjectCardHoverOut,
   animatePrimaryButtonHover,
   animatePrimaryButtonHoverOut,
-} = useHomePageAnimation(containerRef)
+} = useHomePageAnimation(containerRef);
 </script>
 
 <template>
@@ -94,7 +95,7 @@ const {
         <!-- ─── PROJECTS ───────────────────────────────────────────────────── -->
         <section id="projects" class="relative z-20 w-full lg:w-max h-screen bg-primary shrink-0 overflow-hidden">
           <div id="projects-track" class="relative w-full h-full lg:flex lg:flex-row lg:w-max">
-            <a v-for="(project, i) in projects" :key="project.title" :id="`project-${i}`" :href="project.link"
+            <a v-for="(project, i) in featuredProjects" :key="project.title" :id="`project-${i}`" :href="project.link"
               target="_blank" rel="noopener noreferrer"
               class="project-card group absolute inset-0 w-full h-full lg:relative lg:inset-auto lg:w-150 lg:h-screen lg:shrink-0 bg-primary overflow-hidden flex flex-col justify-between cursor-pointer border-b lg:border-b-0 lg:border-r border-black/20 shadow-[0_-12px_30px_rgba(0,0,0,0.3)] lg:shadow-none"
               :style="{ zIndex: 10 + i * 10 }" @mouseenter="animateProjectCardHover"
@@ -103,7 +104,10 @@ const {
                 <img :src="project.img" :alt="project.title"
                   class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
-              <div :class="[project.bgClass, 'relative p-5 sm:p-6 lg:p-4 text-center text-brand-black shrink-0']">
+              <div :class="[
+                project.bgClass,
+                'relative p-5 sm:p-6 lg:p-4 text-center text-brand-black shrink-0',
+              ]">
                 <div class="flex flex-row justify-between gap-2 text-xs font-mono uppercase">
                   <p class="project-meta-item">{{ project.year }}</p>
                   <p class="project-meta-item">{{ project.role }}</p>
@@ -114,7 +118,7 @@ const {
                   {{ project.title }}
                 </h3>
                 <div class="flex items-end justify-between">
-                  <p class="font-mono text-sm">{{ String(i + 1).padStart(2, '0') }}</p>
+                  <p class="font-mono text-sm">{{ String(i + 1).padStart(2, "0") }}</p>
                   <div
                     class="project-btn-icon relative size-11 sm:size-12 lg:size-15 rounded-full border border-brand-black flex items-center justify-center overflow-hidden">
                     <div class="ripple absolute w-full h-full bg-brand-black rounded-full pointer-events-none scale-0">
@@ -130,8 +134,8 @@ const {
               </div>
             </a>
             <div id="projects-end-panel"
-              class="absolute inset-0 w-full h-full lg:relative lg:inset-auto lg:w-[calc(100vw-37.5rem)] lg:min-w-125 lg:h-screen lg:shrink-0 flex flex-col justify-between p-6 sm:p-10 lg:p-12 border-b lg:border-b-0 border-black/20 bg-primary shadow-[0_-12px_30px_rgba(0,0,0,0.3)] lg:shadow-none"
-              :style="{ zIndex: 10 + projects.length * 10 }">
+              class="absolute inset-0 w-full h-full lg:relative lg:inset-auto lg:w-[calc(100vw-37.5rem)] lg:min-w-125 lg:h-screen lg:shrink-0 flex flex-col justify-between p-6 sm:p-10 lg:p-12 border-b lg:border-b-0 border-black/20 bg-primary shadow-lg lg:shadow-none"
+              :style="{ zIndex: 10 + featuredProjects.length * 10 }">
               <div class="pt-14 sm:pt-16 lg:pt-0">
                 <h3 class="projects-heading text-black font-extrabold text-3xl sm:text-5xl lg:text-7xl leading-tight">
                   Projects
@@ -139,10 +143,11 @@ const {
                 <ul class="flex flex-col gap-3 sm:gap-6 mt-4 sm:mt-12">
                   <li v-for="(service, sIdx) in services" :key="service.title + sIdx" class="flex flex-col space-y-1">
                     <div class="flex justify-between w-full">
-                      <a :href="service.link" class="projects-list-item font-bold text-sm sm:text-base lg:text-lg">{{
-                        service.title
-                      }}</a>
-                      <p class="projects-list-item font-extrabold text-xs sm:text-sm">{{ service.num }}</p>
+                      <a :href="service.link" class="projects-list-item font-bold text-sm sm:text-base lg:text-lg">
+                        {{ service.title }}</a>
+                      <p class="projects-list-item font-extrabold text-xs sm:text-sm">
+                        {{ service.num }}
+                      </p>
                     </div>
                     <div class="project-list-bar bg-black h-[0.1vh] w-full origin-left"></div>
                   </li>
@@ -172,7 +177,7 @@ const {
             <!-- ─── EXPERIENCE SNAPSHOT (DESKTOP) ─────────────────────────────── -->
             <section id="experience"
               class="hidden lg:block lg:relative lg:inset-auto lg:w-screen lg:h-screen bg-brand-navy overflow-hidden lg:shrink-0 lg:shadow-none"
-              :style="{ zIndex: 20 + projects.length * 10 }">
+              :style="{ zIndex: 20 + featuredProjects.length * 10 }">
               <div
                 class="relative flex flex-col lg:flex-row justify-between items-center w-full h-full px-6 sm:px-12 lg:px-20 py-16 lg:py-20 gap-6 lg:gap-0">
                 <div id="experience-img-container"
@@ -183,7 +188,9 @@ const {
 
                 <div class="relative z-10 self-start space-y-2 sm:space-y-3 order-1 lg:order-0">
                   <h2 class="text-3xl sm:text-5xl font-extrabold">Experiences</h2>
-                  <p class="text-sm sm:text-lg font-semibold text-white/80">My Journey on my career</p>
+                  <p class="text-sm sm:text-lg font-semibold text-white/80">
+                    My Journey on my career
+                  </p>
                   <RouterLink
                     class="primary-button group relative flex justify-between items-center gap-2.5 bg-primary text-brand-black font-bold px-6 sm:px-8 py-2.5 sm:py-3 rounded-full cursor-pointer overflow-hidden text-xs sm:text-sm w-fit"
                     to="/experience" @mouseenter="animatePrimaryButtonHover" @mouseleave="animatePrimaryButtonHoverOut">
@@ -202,7 +209,9 @@ const {
 
                 <div
                   class="relative z-10 self-start lg:self-end w-full lg:max-w-1/3 space-y-1 sm:space-y-2 order-3 lg:order-0">
-                  <h3 class="text-lg sm:text-2xl font-extrabold">I learn a lot from these journey</h3>
+                  <h3 class="text-lg sm:text-2xl font-extrabold">
+                    I learn a lot from these journey
+                  </h3>
                   <p class="text-xs sm:text-sm font-semibold text-white/60">
                     Ready to take on new challenges and grow as a professional and as a person.
                   </p>

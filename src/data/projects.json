@@ -34,5 +34,14 @@
     "bgClass": "bg-secondary",
     "img": "/img/foster-care.jpg",
     "link": "dev-yota.vilamuzz.me"
+  },
+  {
+    "tag": "Mobile App",
+    "title": "Optima",
+    "year": "2026",
+    "role": "Android Developer",
+    "bgClass": "bg-primary",
+    "img": "/img/warehouse.jpg",
+    "link": "https://github.com/Vilamuzz/Optima"
   }
 ]

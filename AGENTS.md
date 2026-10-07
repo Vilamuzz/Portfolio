@@ -112,20 +112,20 @@ vilamuzz-portfolio/
 
 ```json
 [
-  {
-    "id": "nyuwi-creation", // Unique identifier (slug format)
-    "tag": "Web App", // Project category (or "Mobile App", "CLI Tool", etc.)
-    "title": "Nyuwi Creation", // Project title
-    "description": "Handicraft marketplace...", // 1-2 sentence summary
-    "year": "2024", // Completion year
-    "role": "Backend Developer", // Your role on the project
-    "technologies": ["Go", "PostgreSQL", "Redis"], // OR reference projectServices.json
-    "bgClass": "bg-primary", // Tailwind class for hero background
-    "img": "/img/handicraft.jpg", // Image path (relative to public/)
-    "link": "https://github.com/Vilamuzz/...", // GitHub/demo link
-    "featured": true, // Show on homepage? (optional, default: false)
-    "status": "completed" // "completed" | "in-progress" | "archived"
-  }
+    {
+        "id": "nyuwi-creation", // Unique identifier (slug format)
+        "tag": "Web App", // Project category (or "Mobile App", "CLI Tool", etc.)
+        "title": "Nyuwi Creation", // Project title
+        "description": "Handicraft marketplace...", // 1-2 sentence summary
+        "year": "2024", // Completion year
+        "role": "Backend Developer", // Your role on the project
+        "technologies": ["Go", "PostgreSQL", "Redis"], // OR reference projectServices.json
+        "bgClass": "bg-primary", // Tailwind class for hero background
+        "img": "/img/handicraft.jpg", // Image path (relative to public/)
+        "link": "https://github.com/Vilamuzz/...", // GitHub/demo link
+        "featured": true, // Show on homepage? (optional, default: false)
+        "status": "completed" // "completed" | "in-progress" | "archived"
+    }
 ]
 ```
 
@@ -145,41 +145,49 @@ Single source of truth for work experiences, certificates, and achievements.
 
 ```json
 {
-  "workExperiences": [
-    {
-      "id": "exp-1",
-      "company": "PT. Solutionlabs Indonesia",
-      "logo": "/img/solutionlabs.jpeg",
-      "role": "Fullstack Developer",
-      "type": "Internship",
-      "period": "Aug 2025 — Feb 2026",
-      "location": "Indonesia",
-      "description": "Architected and delivered scalable web applications...",
-      "skills": ["Vue 3", "Node.js", "PostgreSQL", "Tailwind CSS", "Golang", "Docker", "REST API"]
-    }
-  ],
-  "certificates": [
-    {
-      "id": "cert-1",
-      "title": "MikroTik Certified Network Associate",
-      "issuer": "Mikrotikls SIA",
-      "issueDate": "2026",
-      "credentialId": "2605NA4259",
-      "link": "https://mikrotik.com/certificates",
-      "skills": ["IP Architecture", "Routing", "Wireless", "Switching"]
-    }
-  ],
-  "achievements": [
-    {
-      "id": "achieve-1",
-      "title": "Participant of Olimpiade Vokasi Indonesia",
-      "organization": "Universitas Sebelas Maret",
-      "year": "2023",
-      "award": "Participant",
-      "description": "Participant in the National Vocational Olympics...",
-      "tags": []
-    }
-  ]
+    "workExperiences": [
+        {
+            "id": "exp-1",
+            "company": "PT. Solutionlabs Indonesia",
+            "logo": "/img/solutionlabs.jpeg",
+            "role": "Fullstack Developer",
+            "type": "Internship",
+            "period": "Aug 2025 — Feb 2026",
+            "location": "Indonesia",
+            "description": "Architected and delivered scalable web applications...",
+            "skills": [
+                "Vue 3",
+                "Node.js",
+                "PostgreSQL",
+                "Tailwind CSS",
+                "Golang",
+                "Docker",
+                "REST API"
+            ]
+        }
+    ],
+    "certificates": [
+        {
+            "id": "cert-1",
+            "title": "MikroTik Certified Network Associate",
+            "issuer": "Mikrotikls SIA",
+            "issueDate": "2026",
+            "credentialId": "2605NA4259",
+            "link": "https://mikrotik.com/certificates",
+            "skills": ["IP Architecture", "Routing", "Wireless", "Switching"]
+        }
+    ],
+    "achievements": [
+        {
+            "id": "achieve-1",
+            "title": "Participant of Olimpiade Vokasi Indonesia",
+            "organization": "Universitas Sebelas Maret",
+            "year": "2023",
+            "award": "Participant",
+            "description": "Participant in the National Vocational Olympics...",
+            "tags": []
+        }
+    ]
 }
 ```
 
@@ -189,19 +197,19 @@ Single source of truth for work experiences, certificates, and achievements.
 
 ```json
 {
-  "languages": [
-    { "name": "Go", "proficiency": "Advanced", "years": 1 },
-    { "name": "JavaScript", "proficiency": "Intermediate", "years": 2 }
-  ],
-  "frameworks": [
-    { "name": "Vue 3", "proficiency": "Intermediate", "years": 1 },
-    { "name": "Laravel", "proficiency": "Intermediate", "years": 1 }
-  ],
-  "databases": [
-    { "name": "PostgreSQL", "proficiency": "Intermediate", "years": 1 },
-    { "name": "Redis", "proficiency": "Beginner", "years": 0.5 }
-  ],
-  "tools": ["Git", "Docker", "Linux", "GitHub Actions"]
+    "languages": [
+        { "name": "Go", "proficiency": "Advanced", "years": 1 },
+        { "name": "JavaScript", "proficiency": "Intermediate", "years": 2 }
+    ],
+    "frameworks": [
+        { "name": "Vue 3", "proficiency": "Intermediate", "years": 1 },
+        { "name": "Laravel", "proficiency": "Intermediate", "years": 1 }
+    ],
+    "databases": [
+        { "name": "PostgreSQL", "proficiency": "Intermediate", "years": 1 },
+        { "name": "Redis", "proficiency": "Beginner", "years": 0.5 }
+    ],
+    "tools": ["Git", "Docker", "Linux", "GitHub Actions"]
 }
 ```
 
@@ -235,20 +243,20 @@ Single source of truth for work experiences, certificates, and achievements.
 
 - Triggers: `push` to `master`, or `pull_request` against `master`.
 - Steps:
-  1. Checkout repo
-  2. Setup Node 20
-  3. `pnpm install`
-  4. `pnpm run build` (outputs to `dist/`)
-  5. FTP deploy `dist/*` → `/htdocs/` on Infinity Free
+    1. Checkout repo
+    2. Setup Node 20
+    3. `pnpm install`
+    4. `pnpm run build` (outputs to `dist/`)
+    5. FTP deploy `dist/*` → `/htdocs/` on Infinity Free
 
 ### Environment Variables
 
 - **Currently:** None required (static site).
 - **If adding (e.g., contact form, API calls):**
-  1. Create `.env.example` documenting all required vars.
-  2. Add to `.gitignore`: `.env`, `.env.local`, `.env.*.local`
-  3. Reference in code via `import.meta.env.VITE_*` (Vite prefix required).
-  4. Add secrets to GitHub repo settings before deploying.
+    1. Create `.env.example` documenting all required vars.
+    2. Add to `.gitignore`: `.env`, `.env.local`, `.env.*.local`
+    3. Reference in code via `import.meta.env.VITE_*` (Vite prefix required).
+    4. Add secrets to GitHub repo settings before deploying.
 
 ### Base URL
 
@@ -264,8 +272,8 @@ Single source of truth for work experiences, certificates, and achievements.
 3. **Never install a dependency without asking.** Justify why, check alternatives.
 4. **Never delete or rename files** without explicit owner approval (breaks URLs, images, imports).
 5. **Never push to `master` without passing:**
-   - `pnpm run lint` (ESLint + Oxlint clean)
-   - `pnpm run build` (Vite build succeeds)
+    - `pnpm run lint` (ESLint + Oxlint clean)
+    - `pnpm run build` (Vite build succeeds)
 6. **Never hardcode data.** All content (projects, experience, expertise) **must** live in `src/data/*.json`.
 7. **Never modify `.github/workflows/`** or deployment config without owner approval.
 8. **Always use Composition API** (`<script setup>`); never use Options API in new components.
@@ -288,7 +296,7 @@ import AppHeader from "@/components/AppHeader.vue";
 // Props with types (JSDoc)
 /** @type {import('vue').PropType<Project>} */
 const project = defineProps({
-  project: Object,
+    project: Object,
 });
 
 // Reactive state
@@ -299,26 +307,26 @@ const title = computed(() => project.title.toUpperCase());
 
 // Methods (arrow functions preferred)
 const toggleMenu = () => {
-  isOpen.value = !isOpen.value;
+    isOpen.value = !isOpen.value;
 };
 
 // Lifecycle
 onMounted(() => {
-  console.log("Mounted");
+    console.log("Mounted");
 });
 </script>
 
 <template>
-  <div class="container mx-auto">
-    <!-- Use kebab-case for components -->
-    <app-header />
+    <div class="container mx-auto">
+        <!-- Use kebab-case for components -->
+        <app-header />
 
-    <!-- Bind data with `:` -->
-    <h1 :class="{ 'text-lg': isOpen }">{{ title }}</h1>
+        <!-- Bind data with `:` -->
+        <h1 :class="{ 'text-lg': isOpen }">{{ title }}</h1>
 
-    <!-- Events with `@` -->
-    <button @click="toggleMenu" class="btn btn-primary">Toggle</button>
-  </div>
+        <!-- Events with `@` -->
+        <button @click="toggleMenu" class="btn btn-primary">Toggle</button>
+    </div>
 </template>
 ```
 
@@ -340,6 +348,12 @@ const x = projects.filter((p) => p.featured); // Filter featured projects
 const featuredProjects = projects.filter((p) => p.featured);
 ```
 
+### Tailwind Class Conventions
+
+- **No arbitrary values in templates.** Classes like `shadow-[0_-12px_30px_rgba(0,0,0,0.3)]`, `tracking-[0.35em]`, or `h-[0.1vh]` bypass the design system. Check the built-in scale first (`shadow-lg`, `tracking-widest`, `h-0.5`).
+- **Custom values become tokens.** If the built-in scale doesn't fit, add a token to the `@theme` block in `src/index.css` and use the generated utility. Example: `--shadow-panel: 0 -12px 30px rgb(0 0 0 / 0.3);` → use `shadow-panel` instead of `shadow-[0_-12px_30px_rgba(0,0,0,0.3)]`.
+- **Exception:** one-off viewport-proportional display values (e.g. `text-[28vw]` on the 404 background, documented in `docs/04_UI_UX.md`) may stay arbitrary — keep them isolated to one component and add a `// why` comment.
+
 ### Animations (GSAP)
 
 ```javascript
@@ -348,21 +362,21 @@ import { onMounted, onUnmounted } from "vue";
 import gsap from "gsap";
 
 export function useHeroAnimation(containerRef) {
-  let timeline;
+    let timeline;
 
-  onMounted(() => {
-    if (!containerRef.value) return;
+    onMounted(() => {
+        if (!containerRef.value) return;
 
-    timeline = gsap.timeline();
-    timeline.from(".hero-title", { duration: 0.8, opacity: 0, y: 20 });
-    timeline.from(".hero-subtitle", { duration: 0.6, opacity: 0 }, "-=0.4");
-  });
+        timeline = gsap.timeline();
+        timeline.from(".hero-title", { duration: 0.8, opacity: 0, y: 20 });
+        timeline.from(".hero-subtitle", { duration: 0.6, opacity: 0 }, "-=0.4");
+    });
 
-  onUnmounted(() => {
-    timeline?.kill();
-  });
+    onUnmounted(() => {
+        timeline?.kill();
+    });
 
-  return { timeline };
+    return { timeline };
 }
 ```
 
@@ -378,10 +392,10 @@ useHeroAnimation(containerRef);
 </script>
 
 <template>
-  <div ref="containerRef" class="hero">
-    <h1 class="hero-title">Welcome</h1>
-    <p class="hero-subtitle">Portfolio</p>
-  </div>
+    <div ref="containerRef" class="hero">
+        <h1 class="hero-title">Welcome</h1>
+        <p class="hero-subtitle">Portfolio</p>
+    </div>
 </template>
 ```
 
