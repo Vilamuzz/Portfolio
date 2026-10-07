@@ -1,37 +1,29 @@
 <template>
   <main
-    class="relative min-h-screen w-screen bg-brand-black overflow-hidden flex flex-col items-center justify-center"
-  >
+    class="relative min-h-screen w-full bg-brand-black overflow-hidden flex flex-col items-center justify-center px-4">
     <!-- Background glitch number -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-      <span
-        class="glitch-bg text-[28vw] font-black text-white/[0.03] leading-none tracking-tighter"
-        data-text="404"
-        >404</span
-      >
+      <span class="glitch-bg text-[28vw] font-black text-white/3 leading-none tracking-tighter"
+        data-text="404">404</span>
     </div>
 
     <!-- Noise grain overlay -->
     <div class="absolute inset-0 grain opacity-[0.04] pointer-events-none"></div>
 
     <!-- Main content -->
-    <div class="relative z-10 flex flex-col items-center text-center px-8 gap-8">
+    <div class="relative z-10 flex flex-col items-center text-center px-4 sm:px-8 gap-6 sm:gap-8 max-w-xl mx-auto">
       <!-- Animated 404 label -->
       <div class="overflow-hidden">
-        <p
-          ref="errorCodeRef"
-          class="text-primary text-sm font-bold uppercase tracking-[0.3em] translate-y-full"
-        >
+        <p ref="errorCodeRef"
+          class="text-primary text-xs sm:text-sm font-bold uppercase tracking-[0.3em] translate-y-full">
           Error 404
         </p>
       </div>
 
       <!-- Headline -->
       <div class="overflow-hidden">
-        <h1
-          ref="headlineRef"
-          class="text-5xl md:text-7xl font-extrabold text-white leading-tight translate-y-full"
-        >
+        <h1 ref="headlineRef"
+          class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white leading-tight translate-y-full">
           Page not found
         </h1>
       </div>
@@ -46,24 +38,13 @@
 
       <!-- CTA Button -->
       <div ref="btnRef" class="opacity-0 translate-y-4">
-        <RouterLink
-          to="/"
-          class="group inline-flex items-center gap-3 bg-primary text-brand-black font-bold px-8 py-4 rounded-full text-sm hover:bg-white transition-colors duration-300"
-        >
+        <RouterLink to="/"
+          class="group inline-flex items-center gap-3 bg-primary text-brand-black font-bold px-8 py-4 rounded-full text-sm hover:bg-white transition-colors duration-300">
           <span>Back to Home</span>
           <span
-            class="size-6 rounded-full bg-brand-black text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-brand-black transition-colors duration-300"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-3.5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            class="size-6 rounded-full bg-brand-black text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-brand-black transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M7 17 17 7M7 7h10v10" />
             </svg>
           </span>
@@ -72,10 +53,7 @@
     </div>
 
     <!-- Drifting particles -->
-    <canvas
-      ref="particleCanvas"
-      class="absolute inset-0 w-full h-full pointer-events-none"
-    ></canvas>
+    <canvas ref="particleCanvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
   </main>
 </template>
 
@@ -168,17 +146,21 @@ function initParticles() {
 }
 
 @keyframes glitch {
+
   0%,
   90%,
   100% {
     text-shadow: none;
   }
+
   92% {
     text-shadow: -4px 0 rgba(100, 217, 140, 0.25);
   }
+
   94% {
     text-shadow: 4px 0 rgba(255, 80, 80, 0.2);
   }
+
   96% {
     text-shadow: none;
   }

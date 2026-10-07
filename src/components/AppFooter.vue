@@ -2,70 +2,14 @@
 import { onMounted, onUnmounted } from "vue";
 import { Link } from "@lucide/vue";
 import gsap from "gsap";
+import { useContactAnimation } from "@/composables/animations/homepage/useContactAnimation";
 
+const { animateContact } = useContactAnimation();
 let ctx = null;
 
 onMounted(() => {
   ctx = gsap.context(() => {
-    gsap.fromTo(
-      "#contact > div",
-      { y: 30 },
-      {
-        y: 0,
-        duration: 1,
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: "#contact",
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      },
-    );
-
-    gsap.fromTo(
-      "#contact-socials",
-      { y: -170 },
-      {
-        y: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#contact",
-          start: "center bottom",
-          end: "bottom bottom",
-          scrub: true,
-        },
-      },
-    );
-
-    gsap.fromTo(
-      "#contact-heading",
-      { y: -160 },
-      {
-        y: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#contact",
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: true,
-        },
-      },
-    );
-
-    gsap.fromTo(
-      "#contact-subtitle",
-      { y: -200 },
-      {
-        y: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#contact",
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: true,
-        },
-      },
-    );
+    animateContact();
   });
 });
 
@@ -76,17 +20,21 @@ onUnmounted(() => {
 
 <template>
   <!-- ─── CONTACT ────────────────────────────────────────────────────── -->
-  <footer id="contact" class="pt-32 py-4 px-6 bg-brand-navy/30 overflow-hidden">
+  <footer id="contact" class="pt-20 sm:pt-32 py-12 px-6 bg-brand-navy/30 overflow-hidden">
     <div class="max-w-4xl mx-auto text-center translate-y-7.5">
-      <p id="contact-subtitle" class="text-white/50 text-lg leading-relaxed max-w-xl mx-auto">
+      <p id="contact-subtitle" class="text-white/50 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
         Let's create something
       </p>
-      <h1 id="contact-heading" class="text-4xl lg:text-6xl font-extrabold leading-tight mb-32">
+      <a
+        id="contact-heading"
+        href="mailto:vilamuzz@gmail.com"
+        class="inline-block text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-16 sm:mb-28 text-white hover:text-primary transition-colors break-all sm:break-normal cursor-pointer"
+      >
         vilamuzz@gmail.com
-      </h1>
+      </a>
     </div>
 
-    <div id="contact-socials" class="flex flex-row justify-center gap-4 mt-auto translate-y-7.5">
+    <div id="contact-socials" class="flex flex-row justify-center items-center gap-6 mt-auto translate-y-7.5">
       <a
         href="https://www.linkedin.com/in/andy-kasa"
         class="text-white hover:text-primary transition-colors"

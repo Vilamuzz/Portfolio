@@ -1,18 +1,18 @@
 <script setup>
-import { ref } from "vue";
-import experienceData from "@/data/experienceData.json";
-import AppHeader from "@/components/AppHeader.vue";
-import AppFooter from "@/components/AppFooter.vue";
-import { useExperiencePageAnimation } from "@/composables/animations/useExperiencePageAnimation";
-import { Briefcase, Trophy, Calendar, MapPin, ShieldCheck, ArrowUpRight } from "@lucide/vue";
+import { ref } from 'vue'
+import experienceData from '@/data/experience.json'
+import AppHeader from '@/components/AppHeader.vue'
+import AppFooter from '@/components/AppFooter.vue'
+import { useExperiencePageAnimation } from '@/composables/animations/useExperiencePageAnimation'
+import { Briefcase, Trophy, Calendar, MapPin, ShieldCheck, ArrowUpRight } from '@lucide/vue'
 
-const containerRef = ref(null);
+const containerRef = ref(null)
 
 // Data destructuring
-const { workExperiences, certificates, achievements } = experienceData;
+const { workExperiences, certificates, achievements } = experienceData
 
 // Initialize GSAP scroll & entrance animations
-useExperiencePageAnimation(containerRef);
+useExperiencePageAnimation(containerRef)
 </script>
 
 <template>
@@ -24,36 +24,36 @@ useExperiencePageAnimation(containerRef);
     <AppHeader />
 
     <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-6 sm:px-10 pt-32 pb-20 space-y-24">
+    <main class="max-w-7xl mx-auto px-6 sm:px-10 pt-28 sm:pt-32 pb-16 sm:pb-20 space-y-16 sm:space-y-24">
       <!-- ─── HERO HEADER ──────────────────────────────────────────────── -->
-      <section class="experience-header-content space-y-6 pt-6 border-b border-white/10 pb-12">
-        <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight text-white">
+      <section class="experience-header-content space-y-6 pt-4 sm:pt-6 border-b border-white/10 pb-8 sm:pb-12">
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight">
           Experience & <br class="hidden sm:block" />
           <span class="text-white/40">Achievements.</span>
         </h1>
 
-        <p class="text-lg sm:text-xl text-white/70 font-normal max-w-3xl leading-relaxed">
+        <p class="text-base sm:text-xl text-white/70 font-normal max-w-3xl leading-relaxed">
           A dedicated chronicle of my professional work experience, software engineering
           internships, industry certifications, and competition achievements.
         </p>
       </section>
 
       <!-- ─── DEDICATED SECTION 1: WORK & INTERNSHIP EXPERIENCE ────────── -->
-      <section id="work-experience-section" class="space-y-10 scroll-mt-28">
+      <section id="work-experience-section" class="space-y-8 sm:space-y-10 scroll-mt-28">
         <div
           class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6"
         >
           <div class="space-y-2">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white">Work & Internship Experience</h2>
+            <h2 class="text-2xl sm:text-4xl font-bold text-white">Work & Internship Experience</h2>
           </div>
         </div>
 
         <!-- Work Experience Timeline / Cards -->
-        <div class="space-y-8">
+        <div class="space-y-6 sm:space-y-8">
           <div
             v-for="exp in workExperiences"
             :key="exp.id"
-            class="experience-card group p-8 sm:p-10 border border-white/10 hover:border-primary transition-all duration-300 flex flex-col md:flex-row justify-between gap-8"
+            class="experience-card group p-6 sm:p-8 md:p-10 border border-white/10 hover:border-primary transition-all duration-300 flex flex-col md:flex-row justify-between gap-6 sm:gap-8 rounded-xl sm:rounded-none"
           >
             <!-- Left Header / Logo & Period -->
             <div class="md:w-1/3 space-y-4">
@@ -137,7 +137,7 @@ useExperiencePageAnimation(containerRef);
           <div
             v-for="cert in certificates"
             :key="cert.id"
-            class="certificate-card group p-8 border border-white/10 hover:border-primary transition-all duration-300 flex flex-col justify-between space-y-6"
+            class="certificate-card group p-6 sm:p-8 border border-white/10 hover:border-primary transition-all duration-300 flex flex-col justify-between space-y-6 rounded-xl sm:rounded-none"
           >
             <div class="space-y-4">
               <div class="flex items-start justify-between gap-4">
@@ -193,12 +193,12 @@ useExperiencePageAnimation(containerRef);
       </section>
 
       <!-- ─── DEDICATED SECTION 3: ACHIEVEMENTS & AWARDS ────────────────── -->
-      <section id="achievements-section" class="space-y-10 scroll-mt-28">
+      <section id="achievements-section" class="space-y-8 sm:space-y-10 scroll-mt-28">
         <div
           class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6"
         >
           <div class="space-y-2">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white">Achievements & Competitions</h2>
+            <h2 class="text-2xl sm:text-4xl font-bold text-white">Achievements & Competitions</h2>
           </div>
         </div>
 
@@ -207,7 +207,7 @@ useExperiencePageAnimation(containerRef);
           <div
             v-for="achieve in achievements"
             :key="achieve.id"
-            class="achievement-card group p-8 border border-white/10 hover:border-primary transition-all duration-300 flex flex-col justify-between space-y-6"
+            class="achievement-card group p-6 sm:p-8 border border-white/10 hover:border-primary transition-all duration-300 flex flex-col justify-between space-y-6 rounded-xl sm:rounded-none"
           >
             <div class="space-y-4">
               <div class="flex items-center justify-between">

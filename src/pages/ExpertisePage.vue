@@ -49,13 +49,13 @@ const technologies = [
     <AppHeader />
 
     <!-- Main Container -->
-    <main class="pt-32 pb-20 px-6 sm:px-10 max-w-7xl mx-auto space-y-28 lg:space-y-36">
+    <main class="pt-28 sm:pt-32 pb-16 sm:pb-20 px-6 sm:px-10 max-w-7xl mx-auto space-y-16 sm:space-y-24 lg:space-y-36">
       <!-- Page Hero Header -->
       <div class="space-y-4">
-        <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight text-black leading-none">
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-black leading-tight">
           My Expertise & Craft
         </h1>
-        <p class="text-xl sm:text-2xl text-black/60 font-medium max-w-3xl leading-relaxed">
+        <p class="text-lg sm:text-2xl text-black/60 font-medium max-w-3xl leading-relaxed">
           Bridging creative web experiences with resilient engineering, performance optimization,
           and scalable backend architecture.
         </p>
@@ -66,7 +66,7 @@ const technologies = [
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           <!-- Pitch Block 1 -->
           <div
-            class="pitch-card group relative p-8 flex flex-col justify-between hover:-translate-y-1"
+            class="pitch-card group relative p-6 sm:p-8 flex flex-col justify-between hover:-translate-y-1 bg-black/5 rounded-2xl md:rounded-none md:bg-transparent"
           >
             <div class="space-y-4">
               <div
@@ -82,16 +82,16 @@ const technologies = [
               </p>
             </div>
             <div
-              class="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-black/40 font-mono"
+              class="mt-8 pt-4 border-t border-black/10 flex items-center justify-between text-xs text-black/40 font-mono"
             >
               <span>Fullstack Commitment</span>
-              <Zap class="size-4 text-primary" />
+              <Zap class="size-4 text-black" />
             </div>
           </div>
 
           <!-- Pitch Block 2 -->
           <div
-            class="pitch-card group relative p-8 flex flex-col justify-between hover:-translate-y-1"
+            class="pitch-card group relative p-6 sm:p-8 flex flex-col justify-between hover:-translate-y-1 bg-black/5 rounded-2xl md:rounded-none md:bg-transparent"
           >
             <div class="space-y-4">
               <div
@@ -107,16 +107,16 @@ const technologies = [
               </p>
             </div>
             <div
-              class="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-black/40 font-mono"
+              class="mt-8 pt-4 border-t border-black/10 flex items-center justify-between text-xs text-black/40 font-mono"
             >
               <span>Architecture & Quality</span>
-              <Cpu class="size-4 text-primary" />
+              <Cpu class="size-4 text-black" />
             </div>
           </div>
 
           <!-- Pitch Block 3 -->
           <div
-            class="pitch-card group relative p-8 flex flex-col justify-between hover:-translate-y-1"
+            class="pitch-card group relative p-6 sm:p-8 flex flex-col justify-between hover:-translate-y-1 bg-black/5 rounded-2xl md:rounded-none md:bg-transparent"
           >
             <div class="space-y-4">
               <div
@@ -132,10 +132,10 @@ const technologies = [
               </p>
             </div>
             <div
-              class="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-black/40 font-mono"
+              class="mt-8 pt-4 border-t border-black/10 flex items-center justify-between text-xs text-black/40 font-mono"
             >
               <span>Client & User Value</span>
-              <ShieldCheck class="size-4 text-primary" />
+              <ShieldCheck class="size-4 text-black" />
             </div>
           </div>
         </div>
@@ -143,17 +143,17 @@ const technologies = [
 
       <!-- ─── SKILLS ────── -->
       <section id="skills-section" class="relative">
-        <div class="flex flex-row justify-center gap-36">
+        <div class="flex flex-col sm:flex-row justify-center gap-10 sm:gap-16 lg:gap-36">
           <!-- COLUMN 1: DEVELOPMENT SKILLS -->
           <div class="space-y-6">
             <div class="flex items-center">
               <h3 class="text-xl font-bold text-black">Development Domains</h3>
             </div>
 
-            <div class="">
+            <div class="space-y-2">
               <div v-for="(skill, idx) in developmentSkills" :key="idx" class="skill-row-1-card">
                 <div>
-                  <h4 class="text-xs font-bold text-black">{{ skill }}</h4>
+                  <h4 class="text-xs font-bold text-black py-1">/ {{ skill }}</h4>
                 </div>
               </div>
             </div>
@@ -165,7 +165,7 @@ const technologies = [
               <h3 class="text-xl font-bold text-black">Technologies</h3>
             </div>
 
-            <div class="grid grid-cols-1">
+            <div class="grid grid-cols-2 sm:grid-cols-1 gap-2">
               <div
                 v-for="(tech, idx) in technologies"
                 :key="idx"
@@ -173,7 +173,7 @@ const technologies = [
               >
                 <div class="flex items-center justify-between">
                   <span class="text-xs font-mono text-black">
-                    {{ tech }}
+                    • {{ tech }}
                   </span>
                 </div>
               </div>
@@ -182,34 +182,34 @@ const technologies = [
         </div>
       </section>
 
-      <!-- ───EXPERTISE ────────── -->
+      <!-- ─── EXPERTISE ────────── -->
       <section id="further-expertise-section" class="relative space-y-10">
-        <div class="flex flex-col">
+        <div class="flex flex-col gap-12 lg:gap-16">
           <div
             v-for="(item, index) in expertiseItems"
             :key="index"
-            class="further-card group relative p-8 flex flex-col justify-between"
+            class="further-card group relative p-6 sm:p-8 flex flex-col justify-between border-b border-black/20 pb-12"
           >
-            <div class="mb-24">
-              <h3 class="text-5xl font-bold text-black text-center">Expertise</h3>
+            <div class="mb-8 lg:mb-16">
+              <h3 class="text-3xl sm:text-5xl font-bold text-black text-center">Expertise</h3>
             </div>
 
-            <div class="flex flex-row justify-between items-center gap-6">
-              <div class="w-1/3 flex flex-row gap-20 items-center">
-                <span class="font-bold text-xl text-black"> 0{{ index + 1 }} </span>
-                <h3 class="text-2xl font-bold text-black">{{ item.title }}</h3>
+            <div class="flex flex-col lg:flex-row justify-between items-center gap-8 lg:gap-6">
+              <div class="w-full lg:w-1/3 flex flex-row gap-6 sm:gap-12 items-center">
+                <span class="font-bold text-xl text-black">0{{ index + 1 }}</span>
+                <h3 class="text-2xl sm:text-3xl font-bold text-black">{{ item.title }}</h3>
               </div>
 
-              <div class="w-1/3">
+              <div class="w-full lg:w-1/3 flex justify-center">
                 <img
                   :src="item.image"
                   :alt="item.title"
-                  class="w-105 h-70 object-cover shadow-2xl pointer-events-auto"
+                  class="w-full max-w-sm h-56 sm:h-70 object-cover shadow-2xl rounded-xl lg:rounded-none pointer-events-auto"
                 />
               </div>
 
-              <div class="w-1/3">
-                <div class="flex flex-wrap gap-x-4 gap-y-2 mb-6 text-xs uppercase font-mono">
+              <div class="w-full lg:w-1/3 flex flex-col items-start gap-6">
+                <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs uppercase font-mono">
                   <span v-for="skill in item.skills" :key="skill" class="expertise-item-skill"
                     >/ {{ skill }}</span
                   >
@@ -217,7 +217,7 @@ const technologies = [
 
                 <RouterLink
                   to="/projects"
-                  class="primary-button group relative flex justify-between items-center gap-2.5 text-brand-black font-bold px-8 py-3 border rounded-full cursor-pointer overflow-hidden text-sm w-fit"
+                  class="primary-button group relative flex justify-between items-center gap-2.5 text-brand-black font-bold px-8 py-3 border border-black rounded-full cursor-pointer overflow-hidden text-sm w-fit"
                   @mouseenter="animatePrimaryButtonHover"
                   @mouseleave="animatePrimaryButtonHoverOut"
                 >

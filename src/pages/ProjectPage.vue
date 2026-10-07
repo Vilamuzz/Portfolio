@@ -31,11 +31,13 @@ useProjectPageAnimation(containerRef, { titleRef, descRef, tabsRef }, selectedCa
     <!-- Header/Navigation -->
     <AppHeader />
 
-    <div class="px-10 pt-36 mb-16">
-      <h1 ref="titleRef" class="text-7xl font-extrabold tracking-tight opacity-0">Projects</h1>
+    <div class="px-6 sm:px-10 pt-28 sm:pt-36 mb-12 sm:mb-16">
+      <h1 ref="titleRef" class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight opacity-0">
+        Projects
+      </h1>
       <p
         ref="descRef"
-        class="text-2xl text-brand-black/80 font-medium max-w-4xl mt-4 leading-relaxed opacity-0"
+        class="text-lg sm:text-2xl text-brand-black/80 font-medium max-w-4xl mt-4 leading-relaxed opacity-0"
       >
         Each project prioritizes excellence with the goal of immersing your visitors in a powerful
         and impactful universe. We believe that nothing beats an immersive experience, and
@@ -45,13 +47,13 @@ useProjectPageAnimation(containerRef, { titleRef, descRef, tabsRef }, selectedCa
 
     <div
       ref="tabsRef"
-      class="flex flex-wrap justify-center gap-6 border-b border-t border-black py-8 px-4 font-bold opacity-0"
+      class="flex flex-wrap justify-center gap-3 sm:gap-6 border-b border-t border-black py-6 sm:py-8 px-4 font-bold opacity-0"
     >
       <button
         v-for="cat in categories"
         :key="cat"
         @click="selectedCategory = cat"
-        class="relative px-6 py-2 uppercase tracking-widest text-sm transition-all duration-300 rounded-full border-2 border-transparent cursor-pointer"
+        class="relative px-5 sm:px-6 py-2 uppercase tracking-widest text-xs sm:text-sm transition-all duration-300 rounded-full border-2 border-transparent cursor-pointer"
         :class="[
           selectedCategory === cat
             ? 'bg-brand-black text-primary border-brand-black'
@@ -72,15 +74,15 @@ useProjectPageAnimation(containerRef, { titleRef, descRef, tabsRef }, selectedCa
         :href="project.link"
         target="_blank"
         rel="noopener noreferrer"
-        class="project-card group flex flex-col justify-between items-center overflow-hidden h-100 border-b border-black"
-        :class="{ 'border-r': index % 2 === 0 }"
+        class="project-card group flex flex-col justify-between items-center overflow-hidden h-96 sm:h-100 border-b border-black"
+        :class="{ 'md:border-r': index % 2 === 0 }"
       >
-        <div class="text-center">
-          <h3 class="text-2xl font-bold">{{ project.title }}</h3>
-          <h4 class="text-sm mt-1">{{ project.role }}</h4>
+        <div class="text-center pt-4">
+          <h3 class="text-xl sm:text-2xl font-bold">{{ project.title }}</h3>
+          <h4 class="text-xs sm:text-sm mt-1 text-brand-black/80">{{ project.role }}</h4>
         </div>
 
-        <div class="w-3/4 h-3/4 overflow-hidden relative bg-brand-navy">
+        <div class="w-4/5 sm:w-3/4 h-3/5 sm:h-3/4 overflow-hidden relative bg-brand-navy rounded-lg sm:rounded-none">
           <img
             :src="project.img"
             :alt="project.title"
@@ -89,7 +91,7 @@ useProjectPageAnimation(containerRef, { titleRef, descRef, tabsRef }, selectedCa
         </div>
 
         <div
-          class="flex flex-row justify-between w-full p-6 text-xs font-semibold tracking-wider uppercase"
+          class="flex flex-row justify-between w-full px-6 py-4 text-xs font-semibold tracking-wider uppercase font-mono"
         >
           <span>{{ project.tag }}</span>
           <span>{{ project.year }}</span>
@@ -100,24 +102,36 @@ useProjectPageAnimation(containerRef, { titleRef, descRef, tabsRef }, selectedCa
     <!-- Empty State -->
     <div
       v-else
-      class="flex flex-col items-center justify-center py-20 text-center text-brand-black/60"
+      class="flex flex-col items-center justify-center py-24 px-6 text-center max-w-lg mx-auto"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-16 w-16 mb-4 opacity-50"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
+      <div
+        class="size-16 rounded-full bg-brand-black/10 flex items-center justify-center text-brand-black mb-6"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
-          d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-        />
-      </svg>
-      <h3 class="text-xl font-bold">No Projects Found</h3>
-      <p class="text-sm mt-1">More projects in this category are coming soon!</p>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="size-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold mb-2">No Projects Found</h3>
+      <p class="text-brand-black/70 mb-8 text-sm">
+        We couldn't find any projects matching the "{{ selectedCategory }}" category.
+      </p>
+      <button
+        @click="selectedCategory = 'All'"
+        class="px-6 py-2.5 bg-brand-black text-primary font-bold text-xs uppercase tracking-wider rounded-full hover:bg-black/80 transition-colors"
+      >
+        Reset Filter
+      </button>
     </div>
 
     <!-- Footer -->

@@ -41,10 +41,11 @@ export function initLenis(options = {}) {
   if (lenis) return lenis
 
   lenis = new Lenis({
-    duration: 1.5,
-    lerp: 0.05,
-    wheelMultiplier: 1.5,
+    duration: 1.2,
+    lerp: 0.08,
+    wheelMultiplier: 1.2,
     infinite: false,
+    autoResize: true,
     ...options,
   })
 
@@ -72,5 +73,6 @@ export function useLenis() {
   return {
     lenis,
     scrollToTop: () => lenis?.scrollTo(0, { immediate: true }),
+    resizeLenis: () => lenis?.resize(),
   }
 }

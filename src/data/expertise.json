@@ -1,7 +1,7 @@
 [
   {
     "title": "Performance Optimization",
-    "bgClass": "bg-brand-navy",
+    "bgClass": "bg-brand-black",
     "imageBgClass": "bg-primary",
     "image": "/img/performance.jpg",
     "skills": [
@@ -14,7 +14,7 @@
   },
   {
     "title": "Security Hardening",
-    "bgClass": "bg-black",
+    "bgClass": "bg-brand-navy",
     "imageBgClass": "bg-red-500",
     "image": "/img/security.jpg",
     "skills": [
@@ -27,7 +27,7 @@
   },
   {
     "title": "Infrastructure & Deployment",
-    "bgClass": "bg-brand-navy",
+    "bgClass": "bg-brand-black",
     "imageBgClass": "bg-green-500",
     "image": "/img/infrastructure.jpg",
     "skills": [
