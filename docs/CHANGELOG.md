@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### 2026-10-08
+- **refactor(typography):** Refine typography and copy in experience snapshot per PRD
+  - Updated section subtitle to `"A track record of engineering impact and continuous growth"` with `font-medium text-white/80` to enhance visual hierarchy and professional tone.
+  - Replaced informal placeholder heading with `"Building resilient systems through hands-on experience"` using `font-bold tracking-tight text-xl sm:text-2xl`.
+  - Refined right body text to highlight backend scalability and reliability (`text-sm sm:text-base font-normal leading-relaxed text-white/70`).
+  - Applied changes consistently across both desktop and mobile experience snapshot sections in [HomePage.vue](file:///home/andyk/Projects/Portfolio/src/pages/HomePage.vue) while preserving GSAP text animation targets.
+- **fix(scroll):** Fix expertise section snap bug and Lenis/ScrollTrigger asset load desync
+  - Synchronized Lenis with GSAP's ticker (`gsap.ticker.add`) and disabled GSAP lag smoothing (`gsap.ticker.lagSmoothing(0)`) in [useLenis.js](file:///home/andyk/Projects/Portfolio/src/composables/useLenis.js).
+  - Ensured `useLenis()` provides a safe eager singleton instance, resolving the Vue child-before-parent mount race condition where `lenis` was `null` during page animation initialization.
+  - Added `window.addEventListener('load')` and `document.fonts.ready` listeners in [useHomePageAnimation.js](file:///home/andyk/Projects/Portfolio/src/composables/animations/homepage/useHomePageAnimation.js) to recalculate ScrollTrigger pin coordinates and resize Lenis bounds after all network assets finish downloading.
+- **feat(animation):** Add scroll text animation for experience snapshot
+  - Added target class `.experience-right-content` to [HomePage.vue](file:///home/andyk/Projects/Portfolio/src/pages/HomePage.vue) and updated query selectors in [useExperienceAnimation.js](file:///home/andyk/Projects/Portfolio/src/composables/animations/homepage/useExperienceAnimation.js) to trigger wave text reveal for `<h3>` and slide-up transition for `<p>` in the right block ("I learn a lot from these journey").
+- **feat(animation):** Add mobile end panel text and button animations
+  - Updated [useProjectAnimation.js](file:///home/andyk/Projects/Portfolio/src/composables/animations/homepage/useProjectAnimation.js) mobile timeline (`mobileTl`) when sliding up `#projects-end-panel` to include wave character animation on `.projects-heading`, line slide-up on `.projects-list-item` and `.projects-end-text`, list bar scale-in, and primary button intro transition matching desktop.
+  - **Files affected:** `src/composables/animations/homepage/useProjectAnimation.js`, `docs/CHANGELOG.md`
+
 ### 2026-10-07
 - **docs(ui-ux):** Rewrite `docs/04_UI_UX.md` to match Vilamuzz Portfolio
   - Replaced legacy e-commerce (Nyuwi Creation) specification with portfolio design system.

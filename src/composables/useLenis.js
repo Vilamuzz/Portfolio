@@ -10,24 +10,27 @@
  *   Anywhere  → call useLenis() to get { lenis, scrollToTop }.
  */
 import Lenis from 'lenis'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // ── Module-level singleton ────────────────────────────────────────────────────
 let lenis = null
-let rafId = null
+let tickerCallback = null
 
-// ── RAF loop ──────────────────────────────────────────────────────────────────
-function startRaf() {
-  const tick = (time) => {
-    lenis?.raf(time)
-    rafId = requestAnimationFrame(tick)
+// ── GSAP Ticker loop ──────────────────────────────────────────────────────────
+function startTicker() {
+  if (tickerCallback) return
+  tickerCallback = (time) => {
+    lenis?.raf(time * 1000)
   }
-  rafId = requestAnimationFrame(tick)
+  gsap.ticker.add(tickerCallback)
+  gsap.ticker.lagSmoothing(0)
 }
 
-function stopRaf() {
-  if (rafId) {
-    cancelAnimationFrame(rafId)
-    rafId = null
+function stopTicker() {
+  if (tickerCallback) {
+    gsap.ticker.remove(tickerCallback)
+    tickerCallback = null
   }
 }
 
@@ -49,7 +52,8 @@ export function initLenis(options = {}) {
     ...options,
   })
 
-  startRaf()
+  lenis.on('scroll', ScrollTrigger.update)
+  startTicker()
   return lenis
 }
 
@@ -58,7 +62,7 @@ export function initLenis(options = {}) {
  * This is the only place it should be torn down.
  */
 export function destroyLenis() {
-  stopRaf()
+  stopTicker()
   if (lenis) {
     lenis.destroy()
     lenis = null
@@ -67,12 +71,13 @@ export function destroyLenis() {
 
 /**
  * Composable used by any page / composable that needs the Lenis instance.
- * Returns the live instance (or null if initLenis hasn't been called yet).
+ * Returns the live instance, safely creating it if called before App.vue onMounted.
  */
 export function useLenis() {
+  const instance = lenis ?? (typeof window !== 'undefined' ? initLenis() : null)
   return {
-    lenis,
-    scrollToTop: () => lenis?.scrollTo(0, { immediate: true }),
-    resizeLenis: () => lenis?.resize(),
+    lenis: instance,
+    scrollToTop: () => instance?.scrollTo(0, { immediate: true }),
+    resizeLenis: () => instance?.resize(),
   }
 }

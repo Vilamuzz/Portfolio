@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import { useTextAnimation } from "../useTextAnimation";
 import { useButtonAnimation } from "../useButtonAnimation";
 import { useExperienceAnimation } from "./useExperienceAnimation";
@@ -258,18 +259,90 @@ export function useProjectAnimation() {
           );
         }
 
-        // If currentPanel is end panel, animate its list bars
-        if (currentPanel === endPanel && bars.length > 0) {
-          mobileTl.to(
-            bars,
-            {
-              scaleX: 1,
-              stagger: 0.1,
-              duration: 0.5,
-              ease: "none",
-            },
-            `step-${i}+=0.3`,
-          );
+        // If currentPanel is end panel, animate its heading, list items, bars, quote text, and button
+        if (currentPanel === endPanel) {
+          const headingEl = endPanel.querySelector(".projects-heading");
+          if (headingEl) {
+            const splitHeading = SplitText.create(headingEl, { type: "chars", mask: "chars" });
+            if (splitHeading.chars.length > 0) {
+              mobileTl.fromTo(
+                splitHeading.chars,
+                { y: "120%" },
+                {
+                  y: "0%",
+                  duration: 0.5,
+                  stagger: 0.03,
+                  ease: "power2.out",
+                },
+                `step-${i}+=0.2`,
+              );
+            }
+          }
+
+          const listItems = endPanel.querySelectorAll(".projects-list-item");
+          if (listItems.length > 0) {
+            const splitList = SplitText.create(listItems, { type: "lines", mask: "lines" });
+            if (splitList.lines.length > 0) {
+              mobileTl.fromTo(
+                splitList.lines,
+                { y: "120%" },
+                {
+                  y: "0%",
+                  duration: 0.5,
+                  stagger: 0.06,
+                  ease: "power2.out",
+                },
+                `step-${i}+=0.25`,
+              );
+            }
+          }
+
+          if (bars.length > 0) {
+            mobileTl.to(
+              bars,
+              {
+                scaleX: 1,
+                stagger: 0.1,
+                duration: 0.5,
+                ease: "none",
+              },
+              `step-${i}+=0.3`,
+            );
+          }
+
+          const endTexts = endPanel.querySelectorAll(".projects-end-text");
+          if (endTexts.length > 0) {
+            const splitEnd = SplitText.create(endTexts, { type: "lines", mask: "lines" });
+            if (splitEnd.lines.length > 0) {
+              mobileTl.fromTo(
+                splitEnd.lines,
+                { y: "120%" },
+                {
+                  y: "0%",
+                  duration: 0.5,
+                  stagger: 0.06,
+                  ease: "power2.out",
+                },
+                `step-${i}+=0.35`,
+              );
+            }
+          }
+
+          const endBtn = endPanel.querySelector(".primary-button");
+          if (endBtn) {
+            mobileTl.fromTo(
+              endBtn,
+              { opacity: 0, scale: 0.85, y: 20 },
+              {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 0.4,
+                ease: "power2.out",
+              },
+              `step-${i}+=0.4`,
+            );
+          }
         }
       }
 

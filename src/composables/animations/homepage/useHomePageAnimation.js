@@ -25,6 +25,7 @@ export function useHomePageAnimation(containerRef) {
 
   let ctx;
   let onRefreshHandler;
+  let onAssetLoad;
   let resizeTimer;
 
   onMounted(() => {
@@ -37,8 +38,6 @@ export function useHomePageAnimation(containerRef) {
     const { lenis } = useLenis();
 
     if (lenis) {
-      lenis.on("scroll", ScrollTrigger.update);
-
       // Keep Lenis's internal scroll limit in sync with ScrollTrigger pin spacers
       onRefreshHandler = () => {
         lenis.resize();
@@ -53,19 +52,40 @@ export function useHomePageAnimation(containerRef) {
       animateExpertise();
     }, containerRef?.value);
 
-    // Refresh ScrollTrigger and sync Lenis scroll dimensions
+    // Initial refresh
     ScrollTrigger.refresh();
-    if (lenis) {
-      lenis.resize();
-      resizeTimer = setTimeout(() => {
-        ScrollTrigger.refresh();
-        lenis.resize();
-      }, 150);
+    lenis?.resize();
+
+    // Recalculate ScrollTrigger markers and Lenis scroll limits once all images finish loading
+    onAssetLoad = () => {
+      ScrollTrigger.refresh();
+      lenis?.resize();
+    };
+
+    if (document.readyState === "complete") {
+      onAssetLoad();
+    } else {
+      window.addEventListener("load", onAssetLoad, { once: true });
     }
+
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(() => {
+        ScrollTrigger.refresh();
+        lenis?.resize();
+      });
+    }
+
+    resizeTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+      lenis?.resize();
+    }, 200);
   });
 
   onUnmounted(() => {
     if (resizeTimer) clearTimeout(resizeTimer);
+    if (onAssetLoad) {
+      window.removeEventListener("load", onAssetLoad);
+    }
     if (onRefreshHandler) {
       ScrollTrigger.removeEventListener("refresh", onRefreshHandler);
     }

@@ -188,8 +188,8 @@ const {
 
                 <div class="relative z-10 self-start space-y-2 sm:space-y-3 order-1 lg:order-0">
                   <h2 class="text-3xl sm:text-5xl font-extrabold">Experiences</h2>
-                  <p class="text-sm sm:text-lg font-semibold text-white/80">
-                    My Journey on my career
+                  <p class="text-sm sm:text-lg font-medium text-white/80">
+                    A track record of engineering impact and continuous growth
                   </p>
                   <RouterLink
                     class="primary-button group relative flex justify-between items-center gap-2.5 bg-primary text-brand-black font-bold px-6 sm:px-8 py-2.5 sm:py-3 rounded-full cursor-pointer overflow-hidden text-xs sm:text-sm w-fit"
@@ -208,12 +208,13 @@ const {
                 </div>
 
                 <div
-                  class="relative z-10 self-start lg:self-end w-full lg:max-w-1/3 space-y-1 sm:space-y-2 order-3 lg:order-0">
-                  <h3 class="text-lg sm:text-2xl font-extrabold">
-                    I learn a lot from these journey
+                  class="experience-right-content relative z-10 self-start lg:self-end w-full lg:max-w-1/3 space-y-1 sm:space-y-2 order-3 lg:order-0">
+                  <h3 class="text-xl sm:text-2xl font-bold tracking-tight">
+                    Building resilient systems
                   </h3>
-                  <p class="text-xs sm:text-sm font-semibold text-white/60">
-                    Ready to take on new challenges and grow as a professional and as a person.
+                  <p class="text-sm sm:text-base font-normal leading-relaxed text-white/70">
+                    From architecting reliable APIs to optimizing databases, each role has sharpened my focus on
+                    scalability, clean code, and production reliability.
                   </p>
                 </div>
               </div>
@@ -228,7 +229,9 @@ const {
       class="block lg:hidden relative w-full bg-brand-navy text-white px-6 sm:px-12 pt-16 sm:pt-20 pb-8 sm:pb-12 -mt-px space-y-8">
       <div class="space-y-3">
         <h2 class="text-3xl sm:text-5xl font-extrabold">Experiences</h2>
-        <p class="text-sm sm:text-lg font-semibold text-white/80">My Journey on my career</p>
+        <p class="text-sm sm:text-lg font-medium text-white/80">
+          A track record of engineering impact and continuous growth
+        </p>
         <RouterLink
           class="primary-button group relative flex justify-between items-center gap-2.5 bg-primary text-brand-black font-bold px-6 sm:px-8 py-2.5 sm:py-3 rounded-full cursor-pointer overflow-hidden text-xs sm:text-sm w-fit"
           to="/experience" @mouseenter="animatePrimaryButtonHover" @mouseleave="animatePrimaryButtonHoverOut">
@@ -246,9 +249,12 @@ const {
       </div>
 
       <div class="space-y-2">
-        <h3 class="text-lg sm:text-2xl font-extrabold">I learn a lot from these journey</h3>
-        <p class="text-xs sm:text-sm font-semibold text-white/60">
-          Ready to take on new challenges and grow as a professional and as a person.
+        <h3 class="text-xl sm:text-2xl font-bold tracking-tight">
+          Building resilient systems
+        </h3>
+        <p class="text-sm sm:text-base font-normal leading-relaxed text-white/70">
+          From architecting reliable APIs to optimizing databases, each role has sharpened my focus on scalability,
+          clean code, and production reliability.
         </p>
       </div>
     </section>
@@ -257,15 +263,15 @@ const {
     <section id="experience-timeline"
       class="relative w-full bg-brand-navy text-white pt-4 pb-16 sm:pb-24 lg:py-24 px-6 sm:px-12 lg:px-20 -mt-px flex flex-col lg:flex-row justify-between gap-12 lg:gap-8">
       <div class="hidden lg:block lg:w-1/4">
-        <img src="@/assets/img/shuttle.png" alt="Shuttle" class="w-full sticky top-32" />
+        <img src="@/assets/img/shuttle.png" alt="Shuttle" width="891" height="1045"
+          class="w-full sticky top-32 object-contain" />
       </div>
       <div class="flex flex-col gap-6 sm:gap-8 w-full lg:w-2/3">
         <div v-for="item in experienceItems" :key="item.id"
           class="experience-item flex flex-col sm:flex-row w-full gap-6 p-6">
           <div
-            class="w-full sm:w-1/3 lg:w-1/2 overflow-hidden rounded-xl bg-brand-black/40 flex items-center justify-center p-2">
-            <img :src="item.logo || item.img" alt="Experience Image"
-              class="w-full max-h-48 sm:max-h-none object-cover rounded-lg" />
+            class="w-full sm:w-1/3 lg:w-1/2 aspect-video overflow-hidden rounded-xl bg-brand-black/40 flex items-center justify-center p-2">
+            <img :src="item.logo || item.img" alt="Experience Image" class="w-full h-full object-cover rounded-lg" />
           </div>
           <div class="flex flex-col sm:w-2/3 lg:w-1/2">
             <p class="text-primary text-xs font-bold uppercase tracking-widest mb-2">

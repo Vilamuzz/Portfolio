@@ -14,8 +14,8 @@ export function useExperienceAnimation() {
     const img = experience.querySelector("#experience-img-container img");
     const heading = experience.querySelector("h2");
     const subtext = experience.querySelector(".self-start p");
-    const rightHeading = experience.querySelector(".self-end h3");
-    const rightText = experience.querySelector(".self-end p");
+    const rightHeading = experience.querySelector(".experience-right-content h3, .self-end h3");
+    const rightText = experience.querySelector(".experience-right-content p, .self-end p");
     const primaryButton = experience.querySelector(".primary-button");
 
     if (imgContainer) {
@@ -102,6 +102,52 @@ export function useExperienceAnimation() {
   };
 
   const animateExperienceTimeline = () => {
+    const mobileExperience = document.querySelector("#mobile-experience");
+    if (mobileExperience) {
+      const mHeading = mobileExperience.querySelector("h2");
+      const mSubtext = mobileExperience.querySelector(".space-y-3 > p");
+      const mRightHeading = mobileExperience.querySelector(".space-y-2 h3");
+      const mRightText = mobileExperience.querySelector(".space-y-2 p");
+      const mBtn = mobileExperience.querySelector(".primary-button");
+
+      if (mHeading) {
+        animateWaveText(mHeading, {
+          trigger: mobileExperience,
+          start: "top 85%",
+          staggerEnter: 0.04,
+          staggerExit: 0,
+        });
+      }
+      if (mSubtext) {
+        animateTextSlideUp(mSubtext, {
+          trigger: mobileExperience,
+          start: "top 85%",
+          duration: 0.5,
+        });
+      }
+      if (mRightHeading) {
+        animateWaveText(mRightHeading, {
+          trigger: mobileExperience,
+          start: "top 85%",
+          staggerEnter: 0.04,
+          staggerExit: 0,
+        });
+      }
+      if (mRightText) {
+        animateTextSlideUp(mRightText, {
+          trigger: mobileExperience,
+          start: "top 85%",
+          duration: 0.5,
+        });
+      }
+      if (mBtn) {
+        animatePrimaryButtonIntro(mBtn, {
+          trigger: mobileExperience,
+          start: "top 85%",
+        });
+      }
+    }
+
     const items = document.querySelectorAll("#experience-timeline .experience-item");
 
     gsap.set(items, { y: 40, opacity: 0 });
