@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### 2026-10-20
+- **feat(seo):** Add search engine metadata and crawl assets
+  - Added `lang="en"`, title, description, canonical, Open Graph, and Twitter meta tags to `index.html`.
+  - Added `public/robots.txt` and `public/sitemap.xml` covering `/`, `/projects`, `/experience`, and `/expertise`.
+  - Added `public/.htaccess` SPA rewrite so deep links resolve to `index.html` on Apache (Infinity Free).
+  - **Files affected:** `index.html`, `public/robots.txt`, `public/sitemap.xml`, `public/.htaccess`, `docs/CHANGELOG.md`
+
 ### 2026-10-08
 - **refactor(typography):** Refine typography and copy in experience snapshot per PRD
   - Updated section subtitle to `"A track record of engineering impact and continuous growth"` with `font-medium text-white/80` to enhance visual hierarchy and professional tone.
