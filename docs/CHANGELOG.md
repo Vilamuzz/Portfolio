@@ -14,6 +14,14 @@ All notable changes to this project will be documented in this file.
   - Added `public/_redirects` (`/* /index.html 200`) for SPA history fallback.
   - Added `.nvmrc` pinning Node 22.18.0 for the Pages build image.
   - **Files affected:** `public/_redirects`, `.nvmrc`, `docs/CHANGELOG.md`
+- **chore(deploy):** Retire Infinity Free deployment
+  - Removed the FTP deploy step from `.github/workflows/cicd.yaml`; workflow now builds only.
+  - Deleted `public/.htaccess` (no longer needed on Cloudflare Pages).
+  - **Files affected:** `.github/workflows/cicd.yaml`, `public/.htaccess`, `docs/CHANGELOG.md`
+- **fix(deploy):** Add `wrangler.jsonc` for Cloudflare Workers static assets
+  - Cloudflare's build ran `npx wrangler deploy` with no config, causing Wrangler to parse `vite.config.js` and fail.
+  - Declared `./dist` as the assets directory with `not_found_handling: "single-page-application"` for SPA routing.
+  - **Files affected:** `wrangler.jsonc`, `.gitignore`, `docs/CHANGELOG.md`
 
 ### 2026-10-08
 - **refactor(typography):** Refine typography and copy in experience snapshot per PRD

@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI
 
 on:
   push:
@@ -23,13 +23,3 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
-
-      - name: Deploy to Infinity Free
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: /htdocs/

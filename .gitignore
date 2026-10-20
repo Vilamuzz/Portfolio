@@ -39,3 +39,7 @@ __screenshots__/
 
 # Vite
 *.timestamp-*-*.mjs
+
+# Cloudflare Wrangler
+.wrangler
+
