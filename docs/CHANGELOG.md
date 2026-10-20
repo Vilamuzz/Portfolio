@@ -10,6 +10,10 @@ All notable changes to this project will be documented in this file.
   - Added `public/robots.txt` and `public/sitemap.xml` covering `/`, `/projects`, `/experience`, and `/expertise`.
   - Added `public/.htaccess` SPA rewrite so deep links resolve to `index.html` on Apache (Infinity Free).
   - **Files affected:** `index.html`, `public/robots.txt`, `public/sitemap.xml`, `public/.htaccess`, `docs/CHANGELOG.md`
+- **chore(deploy):** Prepare Cloudflare Pages migration
+  - Added `public/_redirects` (`/* /index.html 200`) for SPA history fallback.
+  - Added `.nvmrc` pinning Node 22.18.0 for the Pages build image.
+  - **Files affected:** `public/_redirects`, `.nvmrc`, `docs/CHANGELOG.md`
 
 ### 2026-10-08
 - **refactor(typography):** Refine typography and copy in experience snapshot per PRD
