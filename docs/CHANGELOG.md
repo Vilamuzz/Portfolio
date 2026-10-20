@@ -11,9 +11,8 @@ All notable changes to this project will be documented in this file.
   - Added `public/.htaccess` SPA rewrite so deep links resolve to `index.html` on Apache (Infinity Free).
   - **Files affected:** `index.html`, `public/robots.txt`, `public/sitemap.xml`, `public/.htaccess`, `docs/CHANGELOG.md`
 - **chore(deploy):** Prepare Cloudflare Pages migration
-  - Added `public/_redirects` (`/* /index.html 200`) for SPA history fallback.
   - Added `.nvmrc` pinning Node 22.18.0 for the Pages build image.
-  - **Files affected:** `public/_redirects`, `.nvmrc`, `docs/CHANGELOG.md`
+  - **Files affected:** `.nvmrc`, `docs/CHANGELOG.md`
 - **chore(deploy):** Retire Infinity Free deployment
   - Removed the FTP deploy step from `.github/workflows/cicd.yaml`; workflow now builds only.
   - Deleted `public/.htaccess` (no longer needed on Cloudflare Pages).
@@ -22,6 +21,10 @@ All notable changes to this project will be documented in this file.
   - Cloudflare's build ran `npx wrangler deploy` with no config, causing Wrangler to parse `vite.config.js` and fail.
   - Declared `./dist` as the assets directory with `not_found_handling: "single-page-application"` for SPA routing.
   - **Files affected:** `wrangler.jsonc`, `.gitignore`, `docs/CHANGELOG.md`
+- **fix(deploy):** Drop `_redirects` conflicting with Workers SPA fallback
+  - Removed `public/_redirects`; `not_found_handling: "single-page-application"` already rewrites unknown paths to `/index.html`.
+  - Cloudflare rejected the catch-all rule as an infinite redirect loop (`code: 100324`).
+  - **Files affected:** `public/_redirects`, `docs/CHANGELOG.md`
 
 ### 2026-10-08
 - **refactor(typography):** Refine typography and copy in experience snapshot per PRD
